@@ -37,7 +37,7 @@ export default function LoginForm() {
     <div className="grid place-items-center h-screen">
       <div className="shadow-lg p-5 rounded-lg border-t-4 border-green-400">
         <div className="w-full flex justify-center">
-          <img src="smit.jpeg" className="h-20"></img>
+          <img src="smit.png" className="h-20"></img>
         </div>
         <h1 className="text-md text-gray-600 font-bold my-4 text-center">
           Assignment Portal
