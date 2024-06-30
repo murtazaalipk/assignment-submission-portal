@@ -1,27 +1,29 @@
 "use client";
 
-import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import Navbar from "./Navbar";
+import Task from "./Task";
 
 export default function UserInfo() {
   const { data: session } = useSession();
 
   return (
-    <div className="grid place-items-center h-screen">
-      <div className="shadow-lg p-8 bg-zince-300/10 flex flex-col gap-2 my-6">
-        <div>
-          Name: <span className="font-bold">{session?.user?.name}</span>
+    <>
+      <Navbar />
+      <div className="flex justify-center">
+        <div className="w-full max-w-screen-lg p-4">
+          <div className="text-lg font-semibold text-center mb-2 mt-6">Hey {session?.user?.name}, Welcome Back</div>
+          <h1 className="text-2xl font-semibold  ml-24 mb-4 mt-14">Tasks</h1>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Task />
+            <Task />
+            <Task />
+            <Task />
+            <Task />
+            <Task />
+          </div>
         </div>
-        <div>
-          Email: <span className="font-bold">{session?.user?.email}</span>
-        </div>
-        <button
-          onClick={() => signOut()}
-          className="bg-red-500 text-white font-bold px-6 py-2 mt-3"
-        >
-          Log Out
-        </button>
       </div>
-    </div>
+    </>
   );
 }
