@@ -36,19 +36,28 @@ export default function LoginForm() {
   return (
     <div className="grid place-items-center h-screen">
       <div className="shadow-lg p-5 rounded-lg border-t-4 border-green-400">
-        <h1 className="text-xl font-bold my-4">Login</h1>
-
+        <div className="w-full flex justify-center">
+          <img src="smit.jpeg" className="h-20"></img>
+        </div>
+        <h1 className="text-md text-gray-600 font-bold my-4 text-center">
+          Assignment Portal
+        </h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
             onChange={(e) => setEmail(e.target.value)}
             type="text"
             placeholder="Email"
+            className="h-11"
           />
           <input
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Password"
+            className="h-11"
           />
+          <Link className="text-sm mt-3 text-left" href={"/register"}>
+            <span className="underline">Forgot Password</span>
+          </Link>
           <button className="bg-green-600 text-white font-bold cursor-pointer px-6 py-2">
             Login
           </button>
