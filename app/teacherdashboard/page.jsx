@@ -2,7 +2,7 @@
 
 import Classes from "@/components/classes";
 import { useSession } from "next-auth/react";
-
+import Link from "next/link";
 export default function TeacherDashboard() {
     const { data: session } = useSession();
 

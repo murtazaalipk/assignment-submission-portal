@@ -32,7 +32,7 @@ function AssignmentPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-9">
+    <div className="max-w-7xl pl-9 mx-auto py-9">
       <h2 className="text-3xl font-bold mb-4">JavaScript Assignment</h2>
       <span className={`${notSubmittedClass} px-6 py-1 rounded-full text-sm`}>
         Not Submitted
