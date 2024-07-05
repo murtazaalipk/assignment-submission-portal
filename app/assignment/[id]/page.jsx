@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
 
-function AssignmentPage() {
+function AssignmentPage({ submitted }) {
   const { data: session, status } = useSession();
 
   const [file, setFile] = useState(null);
@@ -32,10 +32,15 @@ function AssignmentPage() {
   };
 
   return (
-    <div className="max-w-7xl pl-9 mx-auto py-9">
+    <div className="max-w-7xl pl-9 px-10 mx-auto py-9">
       <h2 className="text-3xl font-bold mb-4">JavaScript Assignment</h2>
-      <span className={`${notSubmittedClass} px-6 py-1 rounded-full text-sm`}>
-        Not Submitted
+      <span className={`text-sm`}>Expire Date10-July-2024</span>
+      <span
+        className={`${
+          submitted ? submittedClass : notSubmittedClass
+        } mt-2 px-2 py-1 rounded-full text-[10px]`}
+      >
+        {submitted ? "Submitted" : "Not Submitted"}
       </span>
 
       <div className="mt-6">
