@@ -6,7 +6,8 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
-  const [email, setEmail] = useState("");
+/*   const [email, setEmail] = useState(""); */
+  const [cnic, setCnic] = useState();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -16,8 +17,9 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
+      
       const res = await signIn("credentials", {
-        email,
+        cnic,
         password,
         redirect: false,
       });
@@ -44,11 +46,17 @@ export default function LoginForm() {
         </h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
+            onChange={(e) => setCnic(e.target.value)}
+            type="text"
+            placeholder="CNIC"
+            className="h-11"
+          />
+          {/* <input
             onChange={(e) => setEmail(e.target.value)}
             type="text"
             placeholder="Email"
             className="h-11"
-          />
+          /> */}
           <input
             onChange={(e) => setPassword(e.target.value)}
             type="password"

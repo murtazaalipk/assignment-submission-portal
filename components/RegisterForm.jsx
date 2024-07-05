@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+  const [cnic, setCnic] = useState('');
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +16,7 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name || !email || !password) {
+    if (!name || !email || !cnic || !password) {
       setError("All fields are necessary.");
       return;
     }
@@ -26,7 +27,7 @@ export default function RegisterForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ cnic }),
       });
 
       const { user } = await resUserExists.json();
@@ -44,6 +45,7 @@ export default function RegisterForm() {
         body: JSON.stringify({
           name,
           email,
+          cnic,
           password,
         }),
       });
@@ -76,6 +78,11 @@ export default function RegisterForm() {
             type="text"
             placeholder="Email"
           />
+          <input
+            onChange={(e) => setCnic(e.target.value)}
+            type="text"
+            placeholder="CNIC"
+          />          
           <input
             onChange={(e) => setPassword(e.target.value)}
             type="password"
