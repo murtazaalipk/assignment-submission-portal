@@ -17,6 +17,6 @@ const assignmentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Submission'
   }]
-});
+}, { timestamps: true });
 
 export default mongoose.models.Assignment || mongoose.model('Assignment', assignmentSchema, 'assignments');
