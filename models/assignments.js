@@ -13,6 +13,10 @@ const assignmentSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
+  teacherEmail: {
+    type: String,
+    required: true
+  },
   submitted: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Submission'
