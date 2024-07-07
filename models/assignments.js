@@ -13,11 +13,6 @@ const assignmentSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  submissionType: {
-    type: String,
-    enum: ['file', 'text', 'url'],
-    required: true
-  },
   submitted: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Submission'
