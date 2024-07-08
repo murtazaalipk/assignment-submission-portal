@@ -8,7 +8,7 @@ const submissionSchema = new mongoose.Schema({
   },
   student: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Student', // Assuming you have a Student model
+    ref: 'User', // Assuming you have a Student model
     required: true
   },
   submissionDate: {
