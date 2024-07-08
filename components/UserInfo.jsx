@@ -2,10 +2,24 @@
 
 import { useSession } from "next-auth/react";
 import Task from "./Task";
+import { fetchUserByEmail } from "@/services/user";
+import { useEffect } from "react";
 
 export default function UserInfo() {
   const { data: session } = useSession();
-
+  const handleFetchUser = async (email) => {
+    try {
+      const fetchedUser = await fetchUserByEmail(email);
+      console.log(fetchedUser);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+  useEffect(() => {
+    if (session?.user?.email) {
+      handleFetchUser(session?.user?.email);
+    }
+  }, [session?.user?.email]);
   return (
     <>
       <div className="max-w-7xl pl-9 px-10 mx-auto py-9">

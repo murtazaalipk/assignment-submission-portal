@@ -1,4 +1,4 @@
-import Assignment from '../models/assignments';
+import Assignment from "../models/assignments";
 
 /**
  * Creates a new assignment document in the database.
@@ -8,14 +8,19 @@ import Assignment from '../models/assignments';
  * @param {string} teacherEmail - The email of the teacher who created the assignment.
  * @throws {Error} - If there's an error while saving the assignment.
  */
-export const createAssignment = async ({ title, description, dueDate, teacherEmail }) => {
+export const createAssignment = async ({
+  title,
+  description,
+  dueDate,
+  teacherEmail,
+}) => {
   try {
     // Create a new instance of the Assignment model with the provided data
     const newAssignment = new Assignment({
       title,
       description,
       dueDate,
-      teacherEmail
+      teacherEmail,
     });
 
     // Save the new assignment to the database and await the operation
@@ -39,7 +44,6 @@ export const getAssignments = async ({ teacherEmail }) => {
   try {
     // Fetch assignments from the database where the teacherEmail matches the provided email
     const assignments = await Assignment.find({ teacherEmail });
-    console.log(assignments);
 
     // Return the fetched assignments
     return assignments;
