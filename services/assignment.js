@@ -1,4 +1,4 @@
-import Assignment from './models/assignment';
+import Assignment from '../models/assignments';
 
 /**
  * Creates a new assignment document in the database.
@@ -7,14 +7,14 @@ import Assignment from './models/assignment';
  * @param {Date} dueDate - The due date of the assignment.
  * @throws {Error} - If there's an error while saving the assignment.
  */
-export const createAssignment = async (title, description, dueDate , teahcerEmail) => {
+export const createAssignment = async ({title, description, dueDate , teacherEmail}) => {
   try {
     // Create a new instance of the Assignment model with the provided data
     const newAssignment = new Assignment({
       title,
       description,
       dueDate,
-      teahcerEmail
+      teacherEmail
     });
 
     // Save the new assignment to the database and await the operation
