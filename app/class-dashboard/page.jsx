@@ -13,8 +13,8 @@ export default function ClassDashboard() {
       // For demonstration, setting role manually
       setUserRole('teacher'); // Change to 'student' to see student dashboard
       setAssignments([
-        { name: 'Math Homework', dueDate: '2024-07-15', studentCount: 25 },
-        { name: 'Science Project', dueDate: '2024-07-20', studentCount: 20 },
+        { name: 'Portfolio using Html CSS', dueDate: '15-july-2024', studentCount: 25, gradingStatus: 'pending' },
+        { name: 'Print 5 table Using For Loop', dueDate: '20-july-2024', studentCount: 20, gradingStatus: 'complete' },
       ]);
     }, []);
   
