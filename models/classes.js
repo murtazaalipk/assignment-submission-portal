@@ -21,7 +21,13 @@ const classesSchema = new mongoose.Schema({
   days: {
     type: String,
     required: true,
-  }
+  },
+  assignments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Assignment" // Assuming you have an Assignment model
+    }
+  ]
 }, { timestamps: true });
 
 export default mongoose.models.Class || mongoose.model("Class", classesSchema, "classes");
