@@ -17,7 +17,7 @@ export async function POST(req) {
     const { title, description, dueDate, teacherEmail } = await req.json();
 
     const {searchParams} = new URL(req.url);
-    const {classId} = searchParams.get('classId');
+    const classId = searchParams.get('classId');
 
     // Connect to MongoDB
     await connectMongoDB();
