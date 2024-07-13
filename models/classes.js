@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const classesSchema = new mongoose.Schema({
   title: {
-   type:String,
+    type: String,
     required: true,
   },
   teacher: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Assuming you have a Student model
+    ref: "User", // Assuming you have a User model
     required: true,
   },
   batch: {
@@ -16,13 +16,12 @@ const classesSchema = new mongoose.Schema({
   },
   city: {
     type: String,
-    required: true
+    required: true,
   },
   Days: {
     type: String,
-    required: true
-  },
-});
+    required: true,
+  }
+}, { timestamps: true });
 
-export default mongoose.models.Submission ||
-  mongoose.model("Submission", submissionSchema, "submissions");
+export default mongoose.models.Class || mongoose.model("Class", classesSchema, "classes");
