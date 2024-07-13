@@ -56,13 +56,17 @@ export const createAssignment = async ({
  * @returns {Array} - An array of assignment documents.
  * @throws {Error} - If there's an error while fetching the assignments.
  */
-export const getAssignments = async ({ teacherEmail }) => {
+export const getAssignments = async ({ classId }) => {
   try {
-    // Fetch assignments from the database where the teacherEmail matches the provided email
-    const assignments = await Assignment.find({ teacherEmail });
+    //finding assignments of specific class using class Id
+    const existingClass = await Class.findById(classId).populate('assignments');
+
+    if (!existingClass) {
+      throw new Error("Class not found");
+    }
 
     // Return the fetched assignments
-    return assignments;
+    return existingClass.assignments;
   } catch (error) {
     // Throw the error to be caught and handled by the caller
     throw error;
