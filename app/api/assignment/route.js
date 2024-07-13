@@ -16,11 +16,14 @@ export async function POST(req) {
     // Extract title, description, dueDate, and teacherEmail from request body
     const { title, description, dueDate, teacherEmail } = await req.json();
 
+    const {searchParams} = new URL(req.url);
+    const {classId} = searchParams.get('classId');
+
     // Connect to MongoDB
     await connectMongoDB();
 
     // Create the assignment
-    await createAssignment({ title, description, dueDate, teacherEmail });
+    await createAssignment({ classId, title, description, dueDate, teacherEmail });
 
     // Return success response
     return NextResponse.json({ success: true, message: "Assignment posted" }, { status: 201 });
