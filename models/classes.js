@@ -18,7 +18,7 @@ const classesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Days: {
+  days: {
     type: String,
     required: true,
   }
