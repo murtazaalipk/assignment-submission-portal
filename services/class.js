@@ -58,7 +58,6 @@ export const getClass = async ({ email }) => {
     // Find the classes for the teacher by their ID
     const classes = await Class.find({ teacher: getTeacher._id });
 
-    console.log(classes);
     
     // Return the list of classes
     return classes;
