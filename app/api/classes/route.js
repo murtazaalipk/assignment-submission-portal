@@ -1,6 +1,6 @@
 import { connectMongoDB } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
-import { createClass } from "../../../services/class";
+import { createClass , getClass } from "../../../services/class";
 
 /**
  * API endpoint to handle POST requests for creating a new class.
@@ -33,3 +33,33 @@ export async function POST(req) {
     return NextResponse.json({ success: false, message: "An error occurred while creating class" }, { status: 500 });
   }
 }
+
+/**
+ * Handles GET requests to fetch classes for a teacher by email.
+ *
+ * @param {Request} req - The incoming request object.
+ * @returns {Promise<Response>} - The response object.
+ */
+export async function GET(req) {
+    try {
+      const { searchParams } = new URL(req.url);
+      const email = searchParams.get('email');
+  
+      if (!email) {
+        return NextResponse.json({ success: false, message: "Missing email query parameter" }, { status: 400 });
+      }
+  
+      // Connect to MongoDB
+      await connectMongoDB();
+  
+      // Fetch the classes
+      const classes = await getClass({ email });
+  
+      // Return success response
+      return NextResponse.json({ success: true, classes }, { status: 200 });
+    } catch (error) {
+      // Log and handle errors
+      console.error("Exception occurred while fetching class:", error);
+      return NextResponse.json({ success: false, message: "An error occurred while fetching classes" }, { status: 500 });
+    }
+  }
