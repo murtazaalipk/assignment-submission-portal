@@ -1,30 +1,31 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const submissionSchema = new mongoose.Schema({
   assignment: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Assignment',
-    required: true
+    ref: "Assignment",
+    required: true,
   },
   student: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Assuming you have a Student model
-    required: true
+    ref: "User", // Assuming you have a Student model
+    required: true,
   },
   submissionDate: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   urlSubmission: {
     type: String,
-    required: true
+    required: true,
   },
   grade: {
-    type: Number
+    type: Number,
   },
   feedback: {
-    type: String
-  }
+    type: String,
+  },
 });
 
-export default mongoose.models.Submission || mongoose.model('Submission', submissionSchema, 'submissions');
+export default mongoose.models.Submission ||
+  mongoose.model("Submission", submissionSchema, "submissions");

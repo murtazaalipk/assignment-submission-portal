@@ -16,11 +16,14 @@ export async function POST(req) {
     // Extract title, description, dueDate, and teacherEmail from request body
     const { title, description, dueDate, teacherEmail } = await req.json();
 
+    const {searchParams} = new URL(req.url);
+    const classId = searchParams.get('classId');
+
     // Connect to MongoDB
     await connectMongoDB();
 
     // Create the assignment
-    await createAssignment({ title, description, dueDate, teacherEmail });
+    await createAssignment({ classId, title, description, dueDate, teacherEmail });
 
     // Return success response
     return NextResponse.json({ success: true, message: "Assignment posted" }, { status: 201 });
@@ -41,17 +44,13 @@ export async function GET(req) {
   try {
     // Parse the query parameters (assuming teacherEmail is passed as a query parameter)
     const { searchParams } = new URL(req.url);
-    const teacherEmail = searchParams.get('teacherEmail');
-
-    if (!teacherEmail) {
-      return NextResponse.json({ success: false, message: "Missing teacherEmail query parameter" }, { status: 400 });
-    }
+    const classId = searchParams.get('classId');
 
     // Connect to MongoDB
     await connectMongoDB();
 
     // Fetch the assignments
-    const assignments = await getAssignments({ teacherEmail });
+    const assignments = await getAssignments({ classId });
 
     // Return success response
     return NextResponse.json({ success: true, assignments }, { status: 200 });
