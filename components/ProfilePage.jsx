@@ -1,15 +1,15 @@
-"use client"
-import React from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import ChangePasswordForm from './ChangePasswordForm';
+"use client";
+import React from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
+// import ChangePasswordForm from './ChangePasswordForm';
 const ProfilePage = () => {
   const { data: session, status } = useSession();
 
-  if (status === 'loading') {
+  if (status === "loading") {
     return <p>Loading...</p>;
   }
 
-  if (status === 'unauthenticated') {
+  if (status === "unauthenticated") {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
         <p>You are not signed in. Please sign in to view your profile.</p>
@@ -27,7 +27,7 @@ const ProfilePage = () => {
 
   const handleChangePassword = () => {
     // Implement password change logic here
-    alert('Change Password button clicked!');
+    alert("Change Password button clicked!");
   };
 
   return (
