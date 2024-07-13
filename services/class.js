@@ -1,3 +1,4 @@
+import User from "../models/user";
 import Class from "../models/classes"; // Make sure this path points to your Class model
 
 /**
@@ -29,6 +30,38 @@ export const createClass = async ({ title, teacherId, batch, city, days }) => {
 
     // Return the saved class object
     return new_class;
+  } catch (error) {
+    // Throw the error to be caught and handled by the caller
+    throw error;
+  }
+};
+
+/**
+ * Retrieves all classes for a given teacher's email.
+ * 
+ * @param {Object} params - The parameters for retrieving classes.
+ * @param {string} params.email - The email of the teacher whose classes are to be retrieved.
+ * 
+ * @returns {Promise<Array>} The list of classes for the teacher.
+ * @throws {Error} If the teacher does not exist or there is an error during retrieval.
+ */
+export const getClass = async ({ email }) => {
+  try {
+    // Find the teacher by email
+    const getTeacher = await User.findOne({ email });
+    
+    // If the teacher does not exist, throw an error
+    if (!getTeacher) {
+      throw new Error("Teacher doesn't exist with this email");
+    }
+    
+    // Find the classes for the teacher by their ID
+    const classes = await Class.find({ teacher: getTeacher._id });
+
+    console.log(classes);
+    
+    // Return the list of classes
+    return classes;
   } catch (error) {
     // Throw the error to be caught and handled by the caller
     throw error;
