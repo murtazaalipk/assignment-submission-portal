@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
-  const [cnic, setCnic] = useState('');
+  const [cnic, setCnic] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -82,7 +82,7 @@ export default function RegisterForm() {
             onChange={(e) => setCnic(e.target.value)}
             type="text"
             placeholder="CNIC"
-          />          
+          />
           <input
             onChange={(e) => setPassword(e.target.value)}
             type="password"

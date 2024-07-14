@@ -18,9 +18,16 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    assignments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Assignment" }],
+    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+    role: {
+      type: String,
+      default: "student",
+      enum: ["teacher", "student"],
+    },
   },
   { timestamps: true }
 );
 
-const User = models.User || mongoose.model("User", userSchema);
+const User = models?.User || mongoose.model("User", userSchema);
 export default User;
