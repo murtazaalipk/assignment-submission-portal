@@ -1,46 +1,43 @@
+"use client";
 import React, { useState } from "react";
 
-const TeacherClassView = ({ assignments }) => {
+const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
   const [selectedSection, setSelectedSection] = useState("view");
 
   return (
     <div>
       <div className="mx-20 my-10 font-[450]">
-        <h2>Flutter</h2>
-        <h2>Batch : 3</h2>
-        <h2>Teacher ID : F-02</h2>
+        <h2>{course}</h2>
+        <h2>Batch : {batch}</h2>
+        <h2>Teacher ID : {teacherId}</h2>
       </div>
       <div className="mx-20 my-10 shadow-lg font-signika text-[#4f4f4f]">
         <div className="p-4 shadow-sm">
-          <div className="flex justify-between list-none gap-4">
-            <div>
-              <div
-                className={`p-3 rounded cursor-pointer ${
-                  selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
-                }`}
-                onClick={() => setSelectedSection("view")}
-              >
-                <a>View Assignment</a>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div
-                className={`p-3 rounded cursor-pointer ${
-                  selectedSection === "post" ? "bg-blue-200" : "bg-[#e3ebf8]"
-                }`}
-                onClick={() => setSelectedSection("post")}
-              >
-                <a>Post Assignment</a>
-              </div>
-              <div
-                className={`p-3 rounded cursor-pointer ${
-                  selectedSection === "report" ? "bg-blue-200" : "bg-[#e3ebf8]"
-                }`}
-                onClick={() => setSelectedSection("report")}
-              >
-                <a>Generate Report</a>
-              </div>
-            </div>
+          <div className="flex list-none gap-4">
+            <li
+              className={`p-3 rounded ${
+                selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              }`}
+              onClick={() => setSelectedSection("view")}
+            >
+              <a>View Assignment</a>
+            </li>
+            <li
+              className={`p-3 rounded ${
+                selectedSection === "post" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              }`}
+              onClick={() => setSelectedSection("post")}
+            >
+              <a>Post Assignment</a>
+            </li>
+            <li
+              className={`p-3 rounded ${
+                selectedSection === "report" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              }`}
+              onClick={() => setSelectedSection("report")}
+            >
+              <a>Generate Report</a>
+            </li>
           </div>
         </div>
 
@@ -83,11 +80,13 @@ const TeacherClassView = ({ assignments }) => {
           {selectedSection === "post" && (
             <div>
               <h3>Post Assignment</h3>
+              {/* Post assignment form or functionality */}
             </div>
           )}
           {selectedSection === "report" && (
             <div>
               <h3>Generate Report</h3>
+              {/* Report generation functionality */}
             </div>
           )}
         </div>

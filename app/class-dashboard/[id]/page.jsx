@@ -1,18 +1,25 @@
 "use client";
-import { useEffect, useState } from "react";
-import Cart from "@/components/Cart";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import TeacherClassView from "@/components/TeacherClassView";
+import StudentClassView from "@/components/StudentClassView";
 
-export default function TeacherDashboard() {
-  const { data: session } = useSession();
-  const [courses, setCourses] = useState([]);
+export default function ClassDashboard() {
+  const pathname = usePathname();
+  const path = pathname;
+  const id = path.split("/")[2]; // extract id
+  console.log(id);
+  const [userRole, setUserRole] = useState(null);
+  const [course, setCourse] = useState(null);
 
-  // Simulate fetching data from a database
   useEffect(() => {
-    const fetchCourses = async () => {
+    // Simulate fetching user role and course data from your API or authentication context
+    // For demonstration, setting role manually and fetching course data
+    setUserRole("teacher"); // Change to 'student' to see student dashboard
+
+    const fetchCourse = async () => {
       // Simulated fetched data
-      const fetchedCourses = [
+      const courses = [
         {
           id: 1,
           course: "Flutter",
@@ -80,24 +87,44 @@ export default function TeacherDashboard() {
           ],
         },
       ];
-      setCourses(fetchedCourses);
+
+      // Check if id is available and parse it as integer
+      const courseId = parseInt(id);
+
+      if (!isNaN(courseId)) {
+        const selectedCourse = courses.find((course) => course.id === courseId);
+        setCourse(selectedCourse);
+      }
     };
 
-    fetchCourses();
-  }, []);
+    if (id) {
+      fetchCourse();
+    }
+  }, [id]);
 
-  return (
-    <>
-      <h1 className="text-3xl font-bold text-center mt-6 mb-8">
-        Hey Sir {session?.user?.name}, Welcome Back
-      </h1>
-      <div className="flex flex-wrap justify-center gap-4">
-        {courses.map((course) => (
-          <Link key={course.id} href={`/class-dashboard/${course.id}`} passHref>
-            <Cart {...course} />
-          </Link>
-        ))}
-      </div>
-    </>
-  );
+  if (!id || !course) {
+    return <div>Loading...</div>;
+  }
+
+  if (userRole === "teacher") {
+    return (
+      <TeacherClassView
+        course={course.course}
+        batch={course.batch}
+        teacherId="F-02" // Placeholder teacher ID
+        assignments={course.assignments}
+      />
+    );
+  } else if (userRole === "student") {
+    return (
+      <StudentClassView
+        course={course.course}
+        batch={course.batch}
+        studentId="S-01" // Placeholder student ID
+        assignments={course.assignments}
+      />
+    );
+  } else {
+    return <div>Loading...</div>;
+  }
 }
