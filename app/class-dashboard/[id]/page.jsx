@@ -8,7 +8,6 @@ export default function ClassDashboard() {
   const pathname = usePathname();
   const path = pathname;
   const id = path.split("/")[2]; // extract id
-  console.log(id);
   const [userRole, setUserRole] = useState(null);
   const [course, setCourse] = useState(null);
 

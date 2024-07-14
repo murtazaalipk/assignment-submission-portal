@@ -1,6 +1,7 @@
 "use client";
 
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -8,16 +9,17 @@ export default function Navbar() {
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
+  const linkClasses = "block px-4 py-2 text-sm text-gray-700";
 
   return (
     <div className="bg-white shadow-md p-4 flex justify-between items-center">
-      <div className="flex items-center space-x-4">
+      <Link href={"/"}>
         <img
           src="/smit.png"
           alt="Left Image"
           className="w-20 h-16 rounded-full ml-4"
         />
-      </div>
+      </Link>
       <div className="relative inline-block text-left">
         <div>
           <button
@@ -55,48 +57,47 @@ export default function Navbar() {
             tabindex="-1"
           >
             <div className="py-1" role="none">
-              <a
-                href="#"
-                className="block px-4 py-2 text-sm text-gray-700"
+              <Link
+                href="/profile"
+                className={linkClasses}
                 role="menuitem"
                 tabindex="-1"
                 id="menu-item-0"
               >
                 Profile
-              </a>
+              </Link>
             </div>
             <div className="py-1" role="none">
-              <a
+              <Link
                 href="#"
-                className="block px-4 py-2 text-sm text-gray-700"
+                className={linkClasses}
                 role="menuitem"
                 tabindex="-1"
                 id="menu-item-2"
               >
                 Dashboard
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
-                className="block px-4 py-2 text-sm text-gray-700"
+                className={linkClasses}
                 role="menuitem"
                 tabindex="-1"
                 id="menu-item-2"
               >
                 Settings
-              </a>
+              </Link>
             </div>
 
             <div className="py-1" role="none">
-              <a
-                href="#"
+              <button
                 onClick={signOut}
-                className="block px-4 py-2 text-sm text-gray-700"
+                className={linkClasses + " w-full text-left"}
                 role="menuitem"
                 tabindex="-1"
                 id="menu-item-6"
               >
                 Sign Out
-              </a>
+              </button>
             </div>
           </div>
         )}

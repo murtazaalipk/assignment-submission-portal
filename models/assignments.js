@@ -14,8 +14,9 @@ const assignmentSchema = new Schema(
       type: Date,
       required: true,
     },
-    teacherEmail: {
-      type: String,
+    teacherId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Assignment",
       required: true,
     },
     submitted: [

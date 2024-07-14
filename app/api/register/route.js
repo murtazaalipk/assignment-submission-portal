@@ -6,8 +6,16 @@ import bcrypt from "bcryptjs";
 export async function POST(req) {
   try {
     const { name, email, cnic, password, role } = await req.json();
-    const hashedPassword = await bcrypt.hash(password, 10);
     await connectMongoDB();
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const isUserExist = await User.findOne({ cnic });
+    if (isUserExist) {
+      return NextResponse.json({
+        message: "User already registered on this cnic.",
+      });
+    }
     const user = await User.create({
       name,
       email,
@@ -15,7 +23,6 @@ export async function POST(req) {
       password: hashedPassword,
       role,
     });
-    console.log(user);
     return NextResponse.json({ message: "User registered." }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
