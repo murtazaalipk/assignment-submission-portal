@@ -49,7 +49,6 @@ const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
                   <td className="p-3">Assignment</td>
                   <td className="p-3">Due Date</td>
                   <td className="p-3">Student Count</td>
-                  <td className="p-3">Grading</td>
                 </tr>
               </thead>
               <tbody>
@@ -61,17 +60,6 @@ const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
                     <td className="p-3">{assignment.name}</td>
                     <td className="p-3">{assignment.dueDate}</td>
                     <td className="p-3">{assignment.studentCount}</td>
-                    <td className="p-3">
-                      {assignment.gradingStatus === "pending" ? (
-                        <button className="bg-green-300 font-bold w-16 text-green-900 mt-2 px-2 py-1 rounded-full text-[12px]">
-                          Pending
-                        </button>
-                      ) : (
-                        <button className="bg-blue-300 font-bold w-16 text-blue-800 mt-2 px-2 py-1 rounded-full text-[12px]">
-                          Complete
-                        </button>
-                      )}
-                    </td>
                   </tr>
                 ))}
               </tbody>
