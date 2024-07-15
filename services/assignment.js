@@ -16,7 +16,6 @@ export const createAssignment = async ({
   title,
   description,
   dueDate,
-  teacherEmail,
 }) => {
   try {
     // Create a new instance of the Assignment model with the provided data
@@ -24,7 +23,6 @@ export const createAssignment = async ({
       title,
       description,
       dueDate,
-      teacherEmail,
     });
 
     // Save the new assignment to the database and await the operation

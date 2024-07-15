@@ -14,7 +14,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   try {
     // Extract title, description, dueDate, and teacherId from request body
-    const { title, description, dueDate, teacherId } = await req.json();
+    const { title, description, dueDate } = await req.json();
 
     const { searchParams } = new URL(req.url);
     const classId = searchParams.get("classId");
@@ -23,7 +23,7 @@ export async function POST(req) {
     await connectMongoDB();
 
     // Create the assignment
-    await createAssignment({ classId, title, description, dueDate, teacherId });
+    await createAssignment({ classId, title, description, dueDate });
 
     // Return success response
     return NextResponse.json(
