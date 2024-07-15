@@ -82,8 +82,8 @@ export default function StudentDashboard() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center mt-6 mb-8">
-        Hey {session?.user?.name}, Welcome Back
+      <h1 className=" text-[#5b6571] text-lg font-signika pl-20 mt-10 mb-10">
+        Hi! {session?.user?.name}👋<br></br> Welcome to the SMIT student portal. You can find all your courses listed below
       </h1>
       <div className="flex flex-wrap justify-center gap-4">
         {courses.map((course) => (
