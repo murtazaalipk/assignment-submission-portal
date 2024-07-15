@@ -8,28 +8,31 @@ export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
-      credentials: {},
-
+      credentials: {
+        cnic: { label: "CNIC", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
       async authorize(credentials) {
-        const { cnic , password } = credentials;
+        const { cnic, password } = credentials;
 
         try {
           await connectMongoDB();
           const user = await User.findOne({ cnic });
 
           if (!user) {
-            return null;
+            throw new Error("No user found with the provided CNIC");
           }
 
           const passwordsMatch = await bcrypt.compare(password, user.password);
 
           if (!passwordsMatch) {
-            return null;
+            throw new Error("Incorrect password");
           }
 
           return user;
         } catch (error) {
-          console.log("Error: ", error);
+          console.error("Error in authorization: ", error);
+          throw new Error(error.message || "Internal server error");
         }
       },
     }),
@@ -37,9 +40,26 @@ export const authOptions = {
   session: {
     strategy: "jwt",
   },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user._id;
+        token.cnic = user.cnic;
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = token.id;
+      session.user.cnic = token.cnic;
+      session.user.role = token.role;
+      return session;
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/",
+    signOut: "/login", 
   },
 };
 
