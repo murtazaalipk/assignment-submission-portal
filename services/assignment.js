@@ -23,6 +23,7 @@ export const createAssignment = async ({
       title,
       description,
       dueDate,
+      classId
     });
 
     // Save the new assignment to the database and await the operation
