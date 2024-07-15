@@ -24,6 +24,7 @@ const userSchema = new Schema(
       type: String,
       default: "student",
       enum: ["teacher", "student"],
+      required:true
     },
   },
   { timestamps: true }
