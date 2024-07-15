@@ -13,31 +13,31 @@ const TeacherClassView = ({ course, batch, studentId, assignments }) => {
       </div>
       <div className="mx-20 my-10 shadow-lg font-signika text-[#4f4f4f]">
         <div className="p-4 shadow-sm">
-          <div className="flex list-none gap-4">
-            <li
+          <div className="flex gap-4">
+            <button
               className={`p-3 rounded ${
                 selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
               onClick={() => setSelectedSection("view")}
             >
-              <a>View Assignment</a>
-            </li>
-            {/* <li
-              className={`p-3 rounded ${
-                selectedSection === "post" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              View Assignment
+            </button>
+             <button
+              className={`p-3 rounded cursor-not-allowed ${
+                selectedSection === "pending" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
-              onClick={() => setSelectedSection("post")}
+              onClick={() => setSelectedSection("pending")}
             >
-              <a>Post Assignment</a>
-            </li>
-            <li
-              className={`p-3 rounded ${
-                selectedSection === "report" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              Pending Assignment
+            </button>
+            <button
+              className={`p-3 rounded cursor-not-allowed ${
+                selectedSection === "submitted" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
-              onClick={() => setSelectedSection("report")}
+              onClick={() => setSelectedSection("submitted")}
             >
-              <a>Generate Report</a>
-            </li> */}
+              Submitted Assignment
+            </button> 
           </div>
         </div>
 
@@ -75,15 +75,15 @@ const TeacherClassView = ({ course, batch, studentId, assignments }) => {
               </tbody>
             </table>
           )}
-          {selectedSection === "post" && (
+          {selectedSection === "pending" && (
             <div>
-              <h3>Post Assignment</h3>
+              <h3>Pending Assignment</h3>
               {/* Post assignment form or functionality */}
             </div>
           )}
-          {selectedSection === "report" && (
+          {selectedSection === "submitted" && (
             <div>
-              <h3>Generate Report</h3>
+              <h3>Submitted Assignment</h3>
               {/* Report generation functionality */}
             </div>
           )}
