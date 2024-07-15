@@ -12,9 +12,11 @@ export async function middleware(req) {
   if (pathname.startsWith('/api/auth') || token) {
     return NextResponse.next();
   }
+  
 
   // Allow requests for static files (e.g., logo)
   if (
+    pathname.startsWith('/register') ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/favicon.ico') ||
     pathname.startsWith('/public') || 
