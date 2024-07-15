@@ -14,30 +14,30 @@ const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
       <div className="mx-20 my-10 shadow-lg font-signika text-[#4f4f4f]">
         <div className="p-4 shadow-sm">
           <div className="flex list-none gap-4">
-            <li
+            <button
               className={`p-3 rounded ${
                 selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
               onClick={() => setSelectedSection("view")}
             >
-              <a>View Assignment</a>
-            </li>
-            <li
+              View Assignment
+            </button>
+            <button
               className={`p-3 rounded ${
                 selectedSection === "post" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
               onClick={() => setSelectedSection("post")}
             >
-              <a>Post Assignment</a>
-            </li>
-            <li
-              className={`p-3 rounded ${
+              Post Assignment
+            </button>
+            <button
+              className={`p-3 rounded cursor-not-allowed ${
                 selectedSection === "report" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
               onClick={() => setSelectedSection("report")}
             >
-              <a>Generate Report</a>
-            </li>
+              Generate Report
+            </button>
           </div>
         </div>
 
