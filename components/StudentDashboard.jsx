@@ -4,7 +4,7 @@ import Cart from "@/components/Cart";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-export default function TeacherDashboard() {
+export default function StudentDashboard() {
   const { data: session } = useSession();
   const [courses, setCourses] = useState([]);
 
@@ -24,14 +24,12 @@ export default function TeacherDashboard() {
             {
               name: "Assignment 1",
               dueDate: "2024-07-20",
-              studentCount: 20,
-              gradingStatus: "pending",
+              Status: "pending",
             },
             {
               name: "Assignment 2",
               dueDate: "2024-07-27",
-              studentCount: 18,
-              gradingStatus: "complete",
+              Status: "complete",
             },
           ],
         },
@@ -46,14 +44,12 @@ export default function TeacherDashboard() {
             {
               name: "Assignment 1",
               dueDate: "2024-07-22",
-              studentCount: 15,
-              gradingStatus: "pending",
+              Status: "pending",
             },
             {
               name: "Assignment 2",
               dueDate: "2024-07-29",
-              studentCount: 12,
-              gradingStatus: "complete",
+              Status: "complete",
             },
           ],
         },
@@ -68,14 +64,12 @@ export default function TeacherDashboard() {
             {
               name: "Assignment 1",
               dueDate: "2024-07-25",
-              studentCount: 10,
-              gradingStatus: "pending",
+              Status: "pending",
             },
             {
               name: "Assignment 2",
               dueDate: "2024-08-01",
-              studentCount: 8,
-              gradingStatus: "complete",
+              Status: "complete",
             },
           ],
         },
@@ -88,8 +82,8 @@ export default function TeacherDashboard() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center mt-6 mb-8">
-        Hey Sir {session?.user?.name}, Welcome Back
+      <h1 className=" text-[#5b6571] text-lg font-signika pl-20 mt-10 mb-10">
+        Hi! {session?.user?.name}👋<br></br> Welcome to the SMIT student portal. You can find all your courses listed below
       </h1>
       <div className="flex flex-wrap justify-center gap-4">
         {courses.map((course) => (

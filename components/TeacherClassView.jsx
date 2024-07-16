@@ -14,30 +14,30 @@ const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
       <div className="mx-20 my-10 shadow-lg font-signika text-[#4f4f4f]">
         <div className="p-4 shadow-sm">
           <div className="flex list-none gap-4">
-            <li
+            <button
               className={`p-3 rounded ${
                 selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
               onClick={() => setSelectedSection("view")}
             >
-              <a>View Assignment</a>
-            </li>
-            <li
+              View Assignment
+            </button>
+            <button
               className={`p-3 rounded ${
                 selectedSection === "post" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
               onClick={() => setSelectedSection("post")}
             >
-              <a>Post Assignment</a>
-            </li>
-            <li
-              className={`p-3 rounded ${
+              Post Assignment
+            </button>
+            <button
+              className={`p-3 rounded cursor-not-allowed ${
                 selectedSection === "report" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
               onClick={() => setSelectedSection("report")}
             >
-              <a>Generate Report</a>
-            </li>
+              Generate Report
+            </button>
           </div>
         </div>
 
@@ -49,7 +49,6 @@ const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
                   <td className="p-3">Assignment</td>
                   <td className="p-3">Due Date</td>
                   <td className="p-3">Student Count</td>
-                  <td className="p-3">Grading</td>
                 </tr>
               </thead>
               <tbody>
@@ -61,17 +60,6 @@ const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
                     <td className="p-3">{assignment.name}</td>
                     <td className="p-3">{assignment.dueDate}</td>
                     <td className="p-3">{assignment.studentCount}</td>
-                    <td className="p-3">
-                      {assignment.gradingStatus === "pending" ? (
-                        <button className="bg-green-300 font-bold w-16 text-green-900 mt-2 px-2 py-1 rounded-full text-[12px]">
-                          Pending
-                        </button>
-                      ) : (
-                        <button className="bg-blue-300 font-bold w-16 text-blue-800 mt-2 px-2 py-1 rounded-full text-[12px]">
-                          Complete
-                        </button>
-                      )}
-                    </td>
                   </tr>
                 ))}
               </tbody>
