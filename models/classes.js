@@ -27,6 +27,12 @@ const classesSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Assignment" // Assuming you have an Assignment model
     }
+  ],
+  students: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User" // Reference to User model
+    }
   ]
 }, { timestamps: true });
 
