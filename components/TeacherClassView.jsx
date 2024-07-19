@@ -1,5 +1,5 @@
-"use client";
 import React, { useState } from "react";
+import Link from "next/link";
 
 const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
   const [selectedSection, setSelectedSection] = useState("view");
@@ -15,25 +15,19 @@ const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
         <div className="p-4 shadow-sm">
           <div className="flex list-none gap-4">
             <button
-              className={`p-3 rounded ${
-                selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
-              }`}
+              className={`p-3 rounded ${selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"}`}
               onClick={() => setSelectedSection("view")}
             >
               View Assignment
             </button>
             <button
-              className={`p-3 rounded ${
-                selectedSection === "post" ? "bg-blue-200" : "bg-[#e3ebf8]"
-              }`}
+              className={`p-3 rounded ${selectedSection === "post" ? "bg-blue-200" : "bg-[#e3ebf8]"}`}
               onClick={() => setSelectedSection("post")}
             >
               Post Assignment
             </button>
             <button
-              className={`p-3 rounded cursor-not-allowed ${
-                selectedSection === "report" ? "bg-blue-200" : "bg-[#e3ebf8]"
-              }`}
+              className={`p-3 rounded cursor-not-allowed ${selectedSection === "report" ? "bg-blue-200" : "bg-[#e3ebf8]"}`}
               onClick={() => setSelectedSection("report")}
             >
               Generate Report
@@ -53,11 +47,12 @@ const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
               </thead>
               <tbody>
                 {assignments.map((assignment, index) => (
-                  <tr
-                    className="bg-[#e3ebf8] border border-[#cdcb]"
-                    key={index}
-                  >
-                    <td className="p-3">{assignment.name}</td>
+                  <tr className="bg-[#e3ebf8] border border-[#cdcb]" key={index} style={{ cursor: 'pointer' }}>
+                    <td className="p-3">
+                      <Link href={`/class-dashboard/${teacherId}/assignment/${index + 1}`} passHref>
+                        {assignment.name}
+                      </Link>
+                    </td>
                     <td className="p-3">{assignment.dueDate}</td>
                     <td className="p-3">{assignment.studentCount}</td>
                   </tr>
