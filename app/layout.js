@@ -2,8 +2,7 @@ import Navbar from "@/components/Navbar";
 import { AuthProvider } from "./Providers";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { useSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,8 +12,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await getServerSession(authOptions);
-
   return (
     <html lang="en">
       <head>
@@ -31,7 +28,7 @@ export default async function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <AuthProvider>
-          {session && <Navbar />}
+          <Navbar />
           {children}
         </AuthProvider>
       </body>
