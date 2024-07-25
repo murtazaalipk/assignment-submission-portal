@@ -1,5 +1,6 @@
 import Class from "../models/classes";
 import Assignment from "../models/assignments";
+import User from "../models/user";
 
 /**
  * 
@@ -39,6 +40,14 @@ export const createAssignment = async ({
     // Check if the class was found and updated
     if (!existingClass) {
       throw new Error("Class not found");
+    }
+
+    // Loop through the students array and update each student's assignments array
+    for (const studentId of existingClass.students) {
+      await User.findByIdAndUpdate(
+        studentId,
+        { $push: { assignments: assignment._id } }
+      );
     }
 
     // Return the saved assignment object
