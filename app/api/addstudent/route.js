@@ -13,8 +13,6 @@ export async function POST(req) {
         // Extract CNIC from request body
         const { cnic } = await req.json();
 
-        console.log(cnic);
-
         // Extract classId from URL search parameters
         const { searchParams } = new URL(req.url);
         const classId = searchParams.get("classId");
