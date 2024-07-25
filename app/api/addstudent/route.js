@@ -11,7 +11,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         // Extract CNIC from request body
-        const { cnic } = req.body;
+        const { cnic } = await req.json();
 
         // Extract classId from URL search parameters
         const { searchParams } = new URL(req.url);
