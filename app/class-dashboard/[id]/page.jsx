@@ -1,87 +1,18 @@
-
 "use client";
 import React, { useState, useEffect } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useSession } from 'next-auth/react';
 import TeacherClassView from "@/components/TeacherClassView";
 import StudentClassView from "@/components/StudentClassView";
 import { fetchUserByEmail } from "@/services/user"; // Adjust the import path based on your actual service location
 
-// Mock data (can be moved to a separate file)
-const courses = [
-  {
-    id: 1,
-    course: "Flutter",
-    batch: "1",
-    city: "Karachi",
-    days: "Wed & Fri",
-    status: true,
-    assignments: [
-      {
-        name: "Assignment 1",
-        dueDate: "2024-07-20",
-        studentCount: 20,
-        gradingStatus: "pending",
-      },
-      {
-        name: "Assignment 2",
-        dueDate: "2024-07-27",
-        studentCount: 18,
-        Status: "complete",
-      },
-    ],
-  },
-  {
-    id: 2,
-    course: "Flutter",
-    batch: "2",
-    city: "Karachi",
-    days: "Sat & Sun",
-    status: false,
-    assignments: [
-      {
-        name: "Assignment 1",
-        dueDate: "2024-07-22",
-        studentCount: 15,
-        Status: "pending",
-      },
-      {
-        name: "Assignment 2",
-        dueDate: "2024-07-29",
-        studentCount: 12,
-        Status: "complete",
-      },
-    ],
-  },
-  {
-    id: 3,
-    course: "Flutter",
-    batch: "3",
-    city: "Karachi",
-    days: "Mon & Tue",
-    status: false,
-    assignments: [
-      {
-        name: "Assignment 1",
-        dueDate: "2024-07-25",
-        studentCount: 10,
-        Status: "pending",
-      },
-      {
-        name: "Assignment 2",
-        dueDate: "2024-08-01",
-        studentCount: 8,
-        Status: "complete",
-      },
-    ],
-  },
-];
-
 export default function ClassDashboard() {
   const pathname = usePathname();
   const id = pathname.split("/")[2]; // extract id
   const [userData, setUserData] = useState(null);
-  const [course, setCourse] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -93,44 +24,59 @@ export default function ClassDashboard() {
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
+        setError(error.message);
       }
     };
 
-    const fetchCourse = async () => {
+    const fetchCourses = async () => {
       try {
-        const courseId = parseInt(id);
-        if (!isNaN(courseId)) {
-          const selectedCourse = courses.find((course) => course.id === courseId);
-          setCourse(selectedCourse);
+        const response = await fetch(`http://localhost:3000/api/classes?email=${session?.user?.email}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch courses');
         }
+        const fetchedCourses = await response.json();
+        setCourses(fetchedCourses.classes);
+        setLoading(false);
       } catch (error) {
-        console.error("Error fetching course data:", error);
+        console.error("Error fetching courses:", error);
+        setError(error.message);
+        setLoading(false);
       }
     };
 
     fetchUserData();
-    if (id) {
-      fetchCourse();
+    if (session?.user?.email) {
+      fetchCourses();
     }
-  }, [id, session?.user?.email]);
+  }, [session?.user?.email]);
 
-  if (!id || !course || !userData) {
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const course = courses.find(course => course._id === id);
+
+  if (!course || !userData) {
+    return <div>No data available</div>;
   }
 
   return userData.role === "teacher" ? (
     <TeacherClassView
-      course={course.course}
+      course={course.title}
       batch={course.batch}
-      teacherId={course.id} // Adjust according to your fetched user data
-      assignments={course.assignments}
+      teacherId={course.teacher} // Adjust according to your fetched user data
+      classId={id}
     />
   ) : (
     <StudentClassView
-      course={course.course}
+      course={course.title}
       batch={course.batch}
-      studentId={course.id} // Adjust according to your fetched user data
-      assignments={course.assignments}
+      studentId={course._id} // Adjust according to your fetched user data
+      classId={id}
     />
   );
 }
