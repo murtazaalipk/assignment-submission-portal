@@ -1,8 +1,8 @@
-//import { withAuth } from "next-auth/middleware";
-export { default } from "next-auth/middleware";
-/* export default withAuth({
+import { withAuth } from "next-auth/middleware";
+//export { default } from "next-auth/middleware";
+ export default withAuth({
   pages: {
     signIn: '/login' // Redirect to /login if not authenticated
   }
-}); */
+});
 export const config = { matcher: ["/", "/class-dashboard", "/assignment"] };
