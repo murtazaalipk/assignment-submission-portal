@@ -15,7 +15,6 @@ export default function TeacherDashboard() {
     const fetchCourses = async () => {
     const fetchedCourses = await (await fetch(`http://localhost:3000/api/classes?email=${email}`)).json()
     setCourses(fetchedCourses.classes)
-    console.log(fetchedCourses.classes)
   };
 
     fetchCourses();
