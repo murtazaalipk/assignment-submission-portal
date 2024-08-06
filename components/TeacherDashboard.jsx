@@ -15,7 +15,8 @@ export default function TeacherDashboard() {
     const fetchCourses = async () => {
     const fetchedCourses = await (await fetch(`http://localhost:3000/api/classes?email=${email}`)).json()
     setCourses(fetchedCourses.classes)
-    };
+    console.log(fetchedCourses.classes)
+  };
 
     fetchCourses();
   }, []);
@@ -27,7 +28,7 @@ export default function TeacherDashboard() {
       </h1>
       <div className="flex flex-wrap justify-center gap-4">
         {courses.map((course) => (
-          <Link key={course.id} href={`/class-dashboard/${course.id}`} passHref>
+          <Link key={course._id} href={`/class-dashboard/${course._id}`} passHref>
             <Cart {...course} />
           </Link>
         ))}
