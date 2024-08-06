@@ -14,12 +14,12 @@ export default function Navbar() {
   const linkClasses = "block px-4 py-2 text-sm text-gray-700";
 
   return (
-    <div className="bg-white shadow-md p-4 flex justify-between items-center">
+    <div className="bg-white shadow-md p-2 flex justify-between items-center">
       <Link href={"/"}>
         <img
           src="/smit.png"
           alt="Left Image"
-          className="w-20 h-16 rounded-full ml-4"
+          className="h-12 rounded-full ml-4"
         />
       </Link>
       {session && (

@@ -25,8 +25,8 @@ function Form(props) {
   const isLoginPage = pathname === "/login";
   const isRegisterPage = pathname === "/register";
   return (
-    <div className="grid place-items-center h-screen">
-      <div className="shadow-lg p-5 rounded-lg border-t-4 border-green-400">
+    <div className="grid place-items-center p-20">
+      <div className="shadow-lg p-5 rounded-lg border-t-4 border-[#0b74bb]">
         <div className="w-full flex justify-center">
           <img src="smit.png" className="h-20"></img>
         </div>
@@ -58,12 +58,12 @@ function Form(props) {
           />
           {isRegisterPage && (
             <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               onChange={(e) => setRole(e.target.value)}
               value={role}
             >
-              <option value="student">Student</option>
-              <option value="teacher">Teacher</option>
+              <option value="Student">Student</option>
+              <option value="Teacher">Teacher</option>
             </select>
           )}
           <InputField
@@ -74,7 +74,7 @@ function Form(props) {
           />
           <button
             type="submit"
-            className={`bg-green-600 text-white font-bold px-6 py-2 ${
+            className={`bg-[#0b74bb] text-white font-bold px-6 py-2 ${
               isLoading
                 ? "opacity-50 cursor-auto select-none"
                 : "opacity-100 cursor-pointer"
