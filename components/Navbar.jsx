@@ -72,22 +72,13 @@ export default function Navbar() {
               </div>
               <div className="py-1" role="none">
                 <Link
-                  href="#"
+                  href="/"
                   className={linkClasses}
                   role="menuitem"
                   tabindex="-1"
                   id="menu-item-2"
                 >
                   Dashboard
-                </Link>
-                <Link
-                  href="#"
-                  className={linkClasses}
-                  role="menuitem"
-                  tabindex="-1"
-                  id="menu-item-2"
-                >
-                  Settings
                 </Link>
               </div>
 
