@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
-  const [selectedSection, setSelectedSection] = useState("view");
+const TeacherClassView = ({ course, batch, teacherId ,classId }) => {
+const [selectedSection, setSelectedSection] = useState("view");
+const [assignments, setAssignment] = useState([]);
+
+useEffect(() => {
+  const fetchAssignment = async () => {
+  const fetchAssignment = await (await fetch(`http://localhost:3000/api/assignment?classId=${classId}`)).json()
+  setAssignment(fetchAssignment.assignments)
+};
+
+  fetchAssignment();
+}, []);
 
   return (
     <div>
@@ -50,7 +60,7 @@ const TeacherClassView = ({ course, batch, teacherId, assignments }) => {
                   <tr className="bg-[#e3ebf8] border border-[#cdcb]" key={index} style={{ cursor: 'pointer' }}>
                     <td className="p-3">
                       <Link href={`/class-dashboard/${teacherId}/assignment/${index + 1}`} passHref>
-                        {assignment.name}
+                        {assignment.title}
                       </Link>
                     </td>
                     <td className="p-3">{assignment.dueDate}</td>
