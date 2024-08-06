@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Cart from "@/components/Cart";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+// import { getClass } from "@/services/class";
 
 export default function TeacherDashboard() {
   const { data: session } = useSession();
@@ -12,69 +13,73 @@ export default function TeacherDashboard() {
   useEffect(() => {
     const fetchCourses = async () => {
       // Simulated fetched data
-      const fetchedCourses = [
-        {
-          id: 1,
-          course: "Flutter",
-          batch: "1",
-          city: "Karachi",
-          days: "Wed & Fri",
-          status: true,
-          assignments: [
-            {
-              name: "Assignment 1",
-              dueDate: "2024-07-20",
-              studentCount: 20,
-            },
-            {
-              name: "Assignment 2",
-              dueDate: "2024-07-27",
-              studentCount: 18,
-            },
-          ],
-        },
-        {
-          id: 2,
-          course: "Flutter",
-          batch: "2",
-          city: "Karachi",
-          days: "Sat & Sun",
-          status: false,
-          assignments: [
-            {
-              name: "Assignment 1",
-              dueDate: "2024-07-22",
-              studentCount: 15,
-            },
-            {
-              name: "Assignment 2",
-              dueDate: "2024-07-29",
-              studentCount: 12,
-            },
-          ],
-        },
-        {
-          id: 3,
-          course: "Flutter",
-          batch: "3",
-          city: "Karachi",
-          days: "Mon & Tue",
-          status: false,
-          assignments: [
-            {
-              name: "Assignment 1",
-              dueDate: "2024-07-25",
-              studentCount: 10,
-            },
-            {
-              name: "Assignment 2",
-              dueDate: "2024-08-01",
-              studentCount: 8,
-            },
-          ],
-        },
-      ];
-      setCourses(fetchedCourses);
+      // const fetchedCourses = [
+      //   {
+      //     id: 1,
+      //     course: "Flutter",
+      //     batch: "1",
+      //     city: "Karachi",
+      //     days: "Wed & Fri",
+      //     status: true,
+      //     assignments: [
+      //       {
+      //         name: "Assignment 1",
+      //         dueDate: "2024-07-20",
+      //         studentCount: 20,
+      //       },
+      //       {
+      //         name: "Assignment 2",
+      //         dueDate: "2024-07-27",
+      //         studentCount: 18,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     id: 2,
+      //     course: "Flutter",
+      //     batch: "2",
+      //     city: "Karachi",
+      //     days: "Sat & Sun",
+      //     status: false,
+      //     assignments: [
+      //       {
+      //         name: "Assignment 1",
+      //         dueDate: "2024-07-22",
+      //         studentCount: 15,
+      //       },
+      //       {
+      //         name: "Assignment 2",
+      //         dueDate: "2024-07-29",
+      //         studentCount: 12,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     id: 3,
+      //     course: "Flutter",
+      //     batch: "3",
+      //     city: "Karachi",
+      //     days: "Mon & Tue",
+      //     status: false,
+      //     assignments: [
+      //       {
+      //         name: "Assignment 1",
+      //         dueDate: "2024-07-25",
+      //         studentCount: 10,
+      //       },
+      //       {
+      //         name: "Assignment 2",
+      //         dueDate: "2024-08-01",
+      //         studentCount: 8,
+      //       },
+      //     ],
+      //   },
+      // ];
+    //  const response = await fetch("http://localhost:3000/api/classes?email=nadir@gmail.com")
+    //  const fetchCourses = await response.json();
+    //  console.log(fetchCourses)
+    const response = await (await fetch("http://localhost:3000/api/classes?email=nadir@gmail.com")).json()
+    console.log(response)
     };
 
     fetchCourses();
