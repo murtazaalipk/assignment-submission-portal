@@ -24,7 +24,7 @@ export default function StudentDashboard() {
       <h1 className=" text-[#5b6571] text-lg font-signika pl-20 mt-10 mb-10">
         Hi! {session?.user?.name}👋<br></br> Welcome to the SMIT student portal. You can find all your courses listed below
       </h1>
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-wrap justify-start px-20 gap-4">
         {courses.map((course) => (
           <Link key={course.id} href={`/class-dashboard/${course._id}`} passHref>
             <Cart {...course} />
