@@ -1,16 +1,18 @@
 "use client";
-import React, { useState , useEffect } from "react";
-
-const StudentClassView = ({ course, batch , studentId, classId }) => {
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+const StudentClassView = ({ course, batch, studentId, classId }) => {
   const [selectedSection, setSelectedSection] = useState("view");
   const [assignments, setAssignment] = useState([]);
-  
+
   useEffect(() => {
     const fetchAssignment = async () => {
-    const fetchAssignment = await (await fetch(`http://localhost:3000/api/assignment?classId=${classId}`)).json()
-    setAssignment(fetchAssignment.assignments)
-  };
-  
+      const fetchAssignment = await (
+        await fetch(`http://localhost:3000/api/assignment?classId=${classId}`)
+      ).json();
+      setAssignment(fetchAssignment.assignments);
+    };
+
     fetchAssignment();
   }, []);
 
@@ -31,7 +33,7 @@ const StudentClassView = ({ course, batch , studentId, classId }) => {
             >
               View Assignment
             </button>
-             <button
+            <button
               className={`p-3 rounded cursor-not-allowed ${
                 selectedSection === "pending" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
@@ -46,7 +48,7 @@ const StudentClassView = ({ course, batch , studentId, classId }) => {
               onClick={() => setSelectedSection("submitted")}
             >
               Submitted Assignment
-            </button> 
+            </button>
           </div>
         </div>
 
@@ -66,7 +68,17 @@ const StudentClassView = ({ course, batch , studentId, classId }) => {
                     className="bg-[#e3ebf8] border border-[#cdcb]"
                     key={index}
                   >
-                    <td className="p-3">{assignment.title}</td>
+                    <td className="p-3">
+                      {" "}
+                      <Link
+                        href={`/class-dashboard/${studentId}/assignment/${
+                          index + 1
+                        }`}
+                        passHref
+                      >
+                        {assignment.title}{" "}
+                      </Link>
+                    </td>
                     <td className="p-3">{assignment.dueDate}</td>
                     <td className="p-3">
                       {assignment.Status === "pending" ? (

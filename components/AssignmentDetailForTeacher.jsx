@@ -21,7 +21,7 @@ const AssignmentDetail = ({ assignment }) => {
     }, []);
 
     return (
-        <div>
+        <div className="p-20">
             <h2>{assignment.name}</h2>
             <h3>Due Date: {assignment.dueDate}</h3>
             <h4>Student Count: {assignment.studentCount}</h4>

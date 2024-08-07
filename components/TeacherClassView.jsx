@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const TeacherClassView = ({ course, batch, teacherId ,classId }) => {
-const [selectedSection, setSelectedSection] = useState("view");
-const [assignments, setAssignment] = useState([]);
+const TeacherClassView = ({ course, batch, teacherId, classId }) => {
+  const [selectedSection, setSelectedSection] = useState("view");
+  const [assignments, setAssignment] = useState([]);
 
-useEffect(() => {
-  const fetchAssignment = async () => {
-  const fetchAssignment = await (await fetch(`http://localhost:3000/api/assignment?classId=${classId}`)).json()
-  setAssignment(fetchAssignment.assignments)
-};
+  useEffect(() => {
+    const fetchAssignment = async () => {
+      const fetchAssignment = await (
+        await fetch(`http://localhost:3000/api/assignment?classId=${classId}`)
+      ).json();
+      setAssignment(fetchAssignment.assignments);
+    };
 
-  fetchAssignment();
-}, []);
+    fetchAssignment();
+  }, []);
 
   return (
     <div>
@@ -24,19 +26,25 @@ useEffect(() => {
         <div className="p-4 shadow-sm">
           <div className="flex list-none gap-4">
             <button
-              className={`p-3 rounded ${selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"}`}
+              className={`p-3 rounded ${
+                selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              }`}
               onClick={() => setSelectedSection("view")}
             >
               View Assignment
             </button>
             <button
-              className={`p-3 rounded ${selectedSection === "post" ? "bg-blue-200" : "bg-[#e3ebf8]"}`}
+              className={`p-3 rounded ${
+                selectedSection === "post" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              }`}
               onClick={() => setSelectedSection("post")}
             >
               Post Assignment
             </button>
             <button
-              className={`p-3 rounded cursor-not-allowed ${selectedSection === "report" ? "bg-blue-200" : "bg-[#e3ebf8]"}`}
+              className={`p-3 rounded cursor-not-allowed ${
+                selectedSection === "report" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              }`}
               onClick={() => setSelectedSection("report")}
             >
               Generate Report
@@ -56,13 +64,23 @@ useEffect(() => {
               </thead>
               <tbody>
                 {assignments.map((assignment, index) => (
-                  <tr className="bg-[#e3ebf8] border border-[#cdcb]" key={index} style={{ cursor: 'pointer' }}>
+                  <tr
+                    className="bg-[#e3ebf8] border border-[#cdcb]"
+                    key={index}
+                    style={{ cursor: "pointer" }}
+                  >
                     <td className="p-3">
-                      <Link href={`/class-dashboard/${teacherId}/assignment/${index + 1}`} passHref>
+                      <Link
+                        href={`/class-dashboard/${teacherId}/assignment/${
+                          index + 1
+                        }`}
+                        passHref
+                      >
                         {assignment.title}
                       </Link>
                     </td>
                     <td className="p-3">{assignment.dueDate}</td>
+
                     <td className="p-3">{assignment.studentCount}</td>
                   </tr>
                 ))}
