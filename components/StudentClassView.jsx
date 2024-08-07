@@ -1,15 +1,26 @@
 "use client";
-import React, { useState } from "react";
-
-const TeacherClassView = ({ course, batch, studentId, assignments }) => {
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+const StudentClassView = ({ course, batch, studentId, classId }) => {
   const [selectedSection, setSelectedSection] = useState("view");
+  const [assignments, setAssignment] = useState([]);
+
+  useEffect(() => {
+    const fetchAssignment = async () => {
+      const fetchAssignment = await (
+        await fetch(`http://localhost:3000/api/assignment?classId=${classId}`)
+      ).json();
+      setAssignment(fetchAssignment.assignments);
+    };
+
+    fetchAssignment();
+  }, []);
 
   return (
     <div>
       <div className="mx-20 my-10 font-[450]">
         <h2>{course}</h2>
         <h2>Batch : {batch}</h2>
-        <h2>Roll NO : {studentId}</h2>
       </div>
       <div className="mx-20 my-10 shadow-lg font-signika text-[#4f4f4f]">
         <div className="p-4 shadow-sm">
@@ -22,7 +33,7 @@ const TeacherClassView = ({ course, batch, studentId, assignments }) => {
             >
               View Assignment
             </button>
-             <button
+            <button
               className={`p-3 rounded cursor-not-allowed ${
                 selectedSection === "pending" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
@@ -37,7 +48,7 @@ const TeacherClassView = ({ course, batch, studentId, assignments }) => {
               onClick={() => setSelectedSection("submitted")}
             >
               Submitted Assignment
-            </button> 
+            </button>
           </div>
         </div>
 
@@ -57,7 +68,17 @@ const TeacherClassView = ({ course, batch, studentId, assignments }) => {
                     className="bg-[#e3ebf8] border border-[#cdcb]"
                     key={index}
                   >
-                    <td className="p-3">{assignment.name}</td>
+                    <td className="p-3">
+                      {" "}
+                      <Link
+                        href={`/class-dashboard/${studentId}/assignment/${
+                          index + 1
+                        }`}
+                        passHref
+                      >
+                        {assignment.title}{" "}
+                      </Link>
+                    </td>
                     <td className="p-3">{assignment.dueDate}</td>
                     <td className="p-3">
                       {assignment.Status === "pending" ? (
@@ -93,4 +114,4 @@ const TeacherClassView = ({ course, batch, studentId, assignments }) => {
   );
 };
 
-export default TeacherClassView;
+export default StudentClassView;

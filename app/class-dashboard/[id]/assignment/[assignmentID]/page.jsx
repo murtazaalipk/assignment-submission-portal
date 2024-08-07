@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useSession } from 'next-auth/react';
-import AssignmentDetail from "@/components/AssignmentDetail";
-
+import AssignmentDetailForTeacher from "@/components/AssignmentDetailForTeacher";
+import AssignmentDetailForStudent from "@/components/AssignmentDetailForStudent";
 export default function AssignmentDetailPage() {
     const pathname = usePathname();
     const [courseId, assignmentId] = pathname.split("/").slice(3, 5); // extract courseId and assignmentId from URL
     const [assignment, setAssignment] = useState(null);
     const { data: session } = useSession();
+    const role = session?.user?.role;
 
     useEffect(() => {
         const fetchAssignment = async () => {
@@ -40,5 +41,10 @@ export default function AssignmentDetailPage() {
         return <div>Loading...</div>;
     }
 
-    return <AssignmentDetail assignment={assignment} />;
+   
+  return role === "teacher" ? (
+    <AssignmentDetailForTeacher/>
+  ) : (
+    <AssignmentDetailForStudent/>
+  );
 }

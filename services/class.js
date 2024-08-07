@@ -45,24 +45,45 @@ export const createClass = async ({ title, teacherId, batch, city, days }) => {
  * @returns {Promise<Array>} The list of classes for the teacher.
  * @throws {Error} If the teacher does not exist or there is an error during retrieval.
  */
+
+// updated Work for Student and Teacher Both 
+
 export const getClass = async ({ email }) => {
   try {
-    // Find the teacher by email
-    const getTeacher = await User.findOne({ email });
+    // Find the user by email
+    const user = await User.findOne({ email });
     
-    // If the teacher does not exist, throw an error
-    if (!getTeacher) {
-      throw new Error("Teacher doesn't exist with this email");
+    // If the user does not exist, throw an error
+    if (!user) {
+      throw new Error("User doesn't exist with this email");
     }
-    
-    // Find the classes for the teacher by their ID
-    const classes = await Class.find({ teacher: getTeacher._id });
 
-    
+   // console.log('User found:', user);
+
+    let classes;
+
+    if (user.role === 'teacher') {
+      // If the user is a teacher, find the classes where they are the teacher
+      classes = await Class.find({ teacher: user._id });
+
+      //console.log('Classes found for teacher:', classes);
+
+    } else if (user.role === 'student') {
+      // If the user is a student, find the classes where they are in the 'students' array
+      classes = await Class.find({ students: user._id });
+
+      //console.log('Classes found for student:', classes);
+
+    } else {
+      throw new Error("Invalid user role");
+    }
+
     // Return the list of classes
     return classes;
   } catch (error) {
-    // Throw the error to be caught and handled by the caller
+    // Log and throw the error to be caught and handled by the caller
+    console.error('Error:', error);
     throw error;
   }
 };
+ 

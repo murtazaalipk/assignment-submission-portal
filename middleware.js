@@ -5,4 +5,4 @@ import { withAuth } from "next-auth/middleware";
     signIn: '/login' // Redirect to /login if not authenticated
   }
 });
-export const config = { matcher: ["/", "/class-dashboard", "/assignment"] };
+export const config = { matcher: ["/", "/class-dashboard/:path*", "/profile", "/assignment"] };

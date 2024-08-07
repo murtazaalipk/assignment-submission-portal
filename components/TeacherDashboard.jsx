@@ -25,7 +25,7 @@ export default function TeacherDashboard() {
       <h1 className=" text-[#5b6571] text-lg font-signika pl-20 mt-10 mb-10">
         Hi! Sir {session?.user?.name}👋<br /> Welcome to the SMIT Teacher portal. You can find all your courses listed below.
       </h1>
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-wrap justify-start px-20 gap-4">
         {courses.map((course) => (
           <Link key={course._id} href={`/class-dashboard/${course._id}`} passHref>
             <Cart {...course} />
