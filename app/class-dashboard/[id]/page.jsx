@@ -63,7 +63,6 @@ export default function ClassDashboard() {
   if (!course || !userData) {
     return <div>No data available</div>;
   }
-
   return userData.role === "teacher" ? (
     <TeacherClassView
       course={course.title}
@@ -75,7 +74,7 @@ export default function ClassDashboard() {
     <StudentClassView
       course={course.title}
       batch={course.batch}
-      studentId={course._id} // Adjust according to your fetched user data
+      studentId={course.student} // Adjust according to your fetched user data
       classId={id}
     />
   );
