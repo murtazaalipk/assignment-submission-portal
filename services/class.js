@@ -58,18 +58,22 @@ export const getClass = async ({ email }) => {
       throw new Error("User doesn't exist with this email");
     }
 
-    console.log('User found:', user);
+   // console.log('User found:', user);
 
     let classes;
 
     if (user.role === 'teacher') {
       // If the user is a teacher, find the classes where they are the teacher
       classes = await Class.find({ teacher: user._id });
+
       //console.log('Classes found for teacher:', classes);
+
     } else if (user.role === 'student') {
       // If the user is a student, find the classes where they are in the 'students' array
       classes = await Class.find({ students: user._id });
+
       //console.log('Classes found for student:', classes);
+
     } else {
       throw new Error("Invalid user role");
     }
