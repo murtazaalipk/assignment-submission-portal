@@ -19,7 +19,6 @@ useEffect(() => {
       <div className="mx-20 my-10 font-[450]">
         <h2>{course}</h2>
         <h2>Batch : {batch}</h2>
-        <h2>Teacher ID : {teacherId}</h2>
       </div>
       <div className="mx-20 my-10 shadow-lg font-signika text-[#4f4f4f]">
         <div className="p-4 shadow-sm">
