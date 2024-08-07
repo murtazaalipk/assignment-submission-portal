@@ -1,15 +1,24 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 
-const TeacherClassView = ({ course, batch, studentId, assignments }) => {
+const StudentClassView = ({ course, batch , studentId, classId }) => {
   const [selectedSection, setSelectedSection] = useState("view");
+  const [assignments, setAssignment] = useState([]);
+  
+  useEffect(() => {
+    const fetchAssignment = async () => {
+    const fetchAssignment = await (await fetch(`http://localhost:3000/api/assignment?classId=${classId}`)).json()
+    setAssignment(fetchAssignment.assignments)
+  };
+  
+    fetchAssignment();
+  }, []);
 
   return (
     <div>
       <div className="mx-20 my-10 font-[450]">
         <h2>{course}</h2>
         <h2>Batch : {batch}</h2>
-        <h2>Roll NO : {studentId}</h2>
       </div>
       <div className="mx-20 my-10 shadow-lg font-signika text-[#4f4f4f]">
         <div className="p-4 shadow-sm">
@@ -57,7 +66,7 @@ const TeacherClassView = ({ course, batch, studentId, assignments }) => {
                     className="bg-[#e3ebf8] border border-[#cdcb]"
                     key={index}
                   >
-                    <td className="p-3">{assignment.name}</td>
+                    <td className="p-3">{assignment.title}</td>
                     <td className="p-3">{assignment.dueDate}</td>
                     <td className="p-3">
                       {assignment.Status === "pending" ? (
@@ -93,4 +102,4 @@ const TeacherClassView = ({ course, batch, studentId, assignments }) => {
   );
 };
 
-export default TeacherClassView;
+export default StudentClassView;
