@@ -13,7 +13,7 @@ const AddStudent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`/api/addStudent?classId=${formData.classId}`, {
+    const response = await fetch(`http://localhost:3000/api/addstudent?classId=${formData.classId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ const AddStudent = () => {
     });
     const data = await response.json();
     if (data.success) {
-        alert('API call was successful!');
+        alert('successfully Add Student in Class');
         console.log(data); // Handle the data from the API here
     }
   };
