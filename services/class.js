@@ -3,14 +3,14 @@ import Class from "../models/classes"; // Make sure this path points to your Cla
 
 /**
  * Creates a new class document in the database.
- * 
+ *
  * @param {Object} params - The parameters for creating a new class.
  * @param {string} params.title - The title of the class.
  * @param {mongoose.Types.ObjectId} params.teacherId - The ID of the teacher for the class.
  * @param {number} params.batch - The batch number for the class.
  * @param {string} params.city - The city where the class is located.
  * @param {string} params.days - The days the class is held.
- * 
+ *
  * @returns {Promise<Object>} The newly created class object.
  * @throws {Error} If there's an error while saving the class.
  */
@@ -22,7 +22,7 @@ export const createClass = async ({ title, teacherId, batch, city, days }) => {
       teacher: teacherId,
       batch,
       city,
-      days
+      days,
     });
 
     // Save the new class to the database and await the operation
@@ -38,42 +38,40 @@ export const createClass = async ({ title, teacherId, batch, city, days }) => {
 
 /**
  * Retrieves all classes for a given teacher's email.
- * 
+ *
  * @param {Object} params - The parameters for retrieving classes.
  * @param {string} params.email - The email of the teacher whose classes are to be retrieved.
- * 
+ *
  * @returns {Promise<Array>} The list of classes for the teacher.
  * @throws {Error} If the teacher does not exist or there is an error during retrieval.
  */
 
-// updated Work for Student and Teacher Both 
+// updated Work for Student and Teacher Both
 
 export const getClass = async ({ email }) => {
   try {
     // Find the user by email
     const user = await User.findOne({ email });
-    
+
     // If the user does not exist, throw an error
     if (!user) {
       throw new Error("User doesn't exist with this email");
     }
 
-   // console.log('User found:', user);
+    // console.log('User found:', user);
 
     let classes;
 
-    if (user.role === 'teacher') {
+    if (user.role === "teacher") {
       // If the user is a teacher, find the classes where they are the teacher
       classes = await Class.find({ teacher: user._id });
 
       //console.log('Classes found for teacher:', classes);
-
-    } else if (user.role === 'student') {
+    } else if (user.role === "student") {
       // If the user is a student, find the classes where they are in the 'students' array
       classes = await Class.find({ students: user._id });
 
       //console.log('Classes found for student:', classes);
-
     } else {
       throw new Error("Invalid user role");
     }
@@ -82,8 +80,7 @@ export const getClass = async ({ email }) => {
     return classes;
   } catch (error) {
     // Log and throw the error to be caught and handled by the caller
-    console.error('Error:', error);
+    console.error("Error:", error);
     throw error;
   }
 };
- 
