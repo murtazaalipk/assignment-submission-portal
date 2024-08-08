@@ -63,7 +63,7 @@ function Form(props) {
               value={role}
             >
               <option value="Student">Student</option>
-              <option value="Teacher">Teacher</option>
+              <option value="teacher">Teacher</option>
             </select>
           )}
           <InputField
