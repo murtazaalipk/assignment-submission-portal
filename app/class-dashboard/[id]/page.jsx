@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { useSession } from 'next-auth/react';
+import { useSession } from "next-auth/react";
 import TeacherClassView from "@/components/TeacherClassView";
 import StudentClassView from "@/components/StudentClassView";
 import { fetchUserByEmail } from "@/services/user"; // Adjust the import path based on your actual service location
@@ -30,9 +30,11 @@ export default function ClassDashboard() {
 
     const fetchCourses = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/classes?email=${session?.user?.email}`);
+        const response = await fetch(
+          `http://localhost:3000/api/classes?email=${session?.user?.email}`
+        );
         if (!response.ok) {
-          throw new Error('Failed to fetch courses');
+          throw new Error("Failed to fetch courses");
         }
         const fetchedCourses = await response.json();
         setCourses(fetchedCourses.classes);
@@ -58,7 +60,7 @@ export default function ClassDashboard() {
     return <div>Error: {error}</div>;
   }
 
-  const course = courses.find(course => course._id === id);
+  const course = courses.find((course) => course._id === id);
 
   if (!course || !userData) {
     return <div>No data available</div>;
