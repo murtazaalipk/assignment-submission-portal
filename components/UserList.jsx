@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 const UserList = () => {
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    fetch('/api/users')
-      .then(response => response.json())
-      .then(data => setUsers(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch('/api/users')
+  //     .then(response => response.json())
+  //     .then(data => setUsers(data));
+  // }, []);
 
   return (
     <div className="p-4">
@@ -22,13 +22,13 @@ const UserList = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map(user => (
+          {/* {users.map(user => (
             <tr key={user.cnic}>
               <td className="py-2 px-4 border">{user.cnic}</td>
               <td className="py-2 px-4 border">{user.name}</td>
               <td className="py-2 px-4 border">{user.email}</td>
             </tr>
-          ))}
+          ))} */}
         </tbody>
       </table>
     </div>
