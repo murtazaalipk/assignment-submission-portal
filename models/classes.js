@@ -33,7 +33,13 @@ const classesSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "User" // Reference to User model
     }
-  ]
+  ],
+  status: {
+    type: String,
+    enum: ["in progress", "completed"],
+    default: "in progress",
+    required: true,
+  }
 }, { timestamps: true });
 
 export default mongoose.models.Class || mongoose.model("Class", classesSchema, "classes");
