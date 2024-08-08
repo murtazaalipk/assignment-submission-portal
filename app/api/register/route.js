@@ -8,6 +8,18 @@ export async function POST(req) {
     const { name, email, cnic, password, role } = await req.json();
     await connectMongoDB();
 
+    // Check if the role is "admin" and if there is already an admin user in the database
+    if (role === "admin") {
+      const adminUser = await User.findOne({ role: "admin" });
+      if (adminUser) {
+        return NextResponse.json(
+          { message: "Invalid role selection: Admin user already exists." },
+          { status: 400 }
+        );
+      }
+    }
+
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const isUserExist = await User.findOne({ cnic });
