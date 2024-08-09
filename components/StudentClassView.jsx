@@ -26,25 +26,22 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
         <div className="p-4 shadow-sm">
           <div className="flex gap-4">
             <button
-              className={`p-3 rounded ${
-                selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
-              }`}
+              className={`p-3 rounded ${selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
+                }`}
               onClick={() => setSelectedSection("view")}
             >
               View Assignment
             </button>
             <button
-              className={`p-3 rounded cursor-not-allowed ${
-                selectedSection === "pending" ? "bg-blue-200" : "bg-[#e3ebf8]"
-              }`}
+              className={`p-3 rounded cursor-not-allowed ${selectedSection === "pending" ? "bg-blue-200" : "bg-[#e3ebf8]"
+                }`}
               onClick={() => setSelectedSection("pending")}
             >
               Pending Assignment
             </button>
             <button
-              className={`p-3 rounded cursor-not-allowed ${
-                selectedSection === "submitted" ? "bg-blue-200" : "bg-[#e3ebf8]"
-              }`}
+              className={`p-3 rounded cursor-not-allowed ${selectedSection === "submitted" ? "bg-blue-200" : "bg-[#e3ebf8]"
+                }`}
               onClick={() => setSelectedSection("submitted")}
             >
               Submitted Assignment
@@ -63,21 +60,17 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
                 </tr>
               </thead>
               <tbody>
-                {assignments.map((assignment, index) => (
+                {assignments.map((assignment) => (
                   <tr
                     className="bg-[#e3ebf8] border border-[#cdcb]"
-                    key={index}
+                    key={assignment._id}
                   >
                     <td className="p-3">
-                      {" "}
                       <Link
-                        href={`/class-dashboard/${studentId}/assignment/${
-                          index + 1
-                        }`}
-                        passHref
-                      >
-                        {assignment.title}{" "}
-                      </Link>
+                        href={{
+                          pathname: `/class-dashboard/${assignment.classId}/assignment/${assignment._id}`,
+                        }}
+                      >{assignment.title}</Link>
                     </td>
                     <td className="p-3">{assignment.dueDate}</td>
                     <td className="p-3">
