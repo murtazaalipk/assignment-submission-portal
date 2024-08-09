@@ -4,7 +4,8 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
 
-function AssignmentPage({ submitted }) {
+function AssignmentPage({ submitted,assignment }) {
+  
   const { data: session, status } = useSession();
 
   const [file, setFile] = useState(null);
@@ -33,8 +34,8 @@ function AssignmentPage({ submitted }) {
 
   return (
     <div className="max-w-7xl pl-9 px-10 mx-auto py-9">
-      <h2 className="text-3xl font-bold mb-4">JavaScript Assignment</h2>
-      <span className={`text-sm`}>Expire Date10-July-2024</span>
+      <h2 className="text-3xl font-bold mb-4">{assignment.title}</h2>
+      <span className={`text-sm`}>Expiry {assignment.dueDate.split("T")[0]}</span>
       <span
         className={`${
           submitted ? submittedClass : notSubmittedClass
