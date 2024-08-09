@@ -16,7 +16,6 @@ export default function Register() {
   const [isLoading, setLoading] = useState(false);
   const router = useRouter();
   const { data: session, status } = useSession();
-  console.log();
 
   if (status === "loading") {
     return <Loader />;

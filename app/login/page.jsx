@@ -1,10 +1,9 @@
 "use client";
 
-// import { authOptions } from "../api/auth/[...nextauth]/route";
 import Form from "@/components/Form";
 import Loader from "@/components/Loader";
 import { signIn, useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function Register() {
@@ -13,7 +12,6 @@ export default function Register() {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
-  const router = useRouter();
   const { data: session, status } = useSession();
 
   if (status === "loading") {
@@ -52,7 +50,7 @@ export default function Register() {
         return;
       }
 
-      router.replace("/");
+      redirect("/");
     } catch (error) {
       console.log(error);
     } finally {
