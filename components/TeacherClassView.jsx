@@ -64,27 +64,32 @@ const TeacherClassView = ({ course, batch, teacherId, classId }) => {
                 </tr>
               </thead>
               <tbody>
-                {assignments?.map((assignment, index) => (
-                  <tr
-                    className="bg-[#e3ebf8] border border-[#cdcb]"
-                    key={index}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <td className="p-3">
-                      <Link
-                        href={`/class-dashboard/${teacherId}/assignment/${
-                          index + 1
-                        }`}
-                        passHref
-                      >
-                        {assignment.title}
-                      </Link>
-                    </td>
-                    <td className="p-3">{assignment.dueDate}</td>
+                {assignments?.map((assignment, index) => {
+                  const date = new Date(assignment.dueDate);
+                  const dueDate = date.toDateString();
 
-                    <td className="p-3">{assignment.studentCount}</td>
-                  </tr>
-                ))}
+                  return (
+                    <tr
+                      className="bg-[#e3ebf8] border border-[#cdcb]"
+                      key={index}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <td className="p-3">
+                        <Link
+                          href={`/class-dashboard/${teacherId}/assignment/${
+                            index + 1
+                          }`}
+                          passHref
+                        >
+                          {assignment.title}
+                        </Link>
+                      </td>
+                      <td className="p-3">{dueDate}</td>
+
+                      <td className="p-3">{assignment.studentCount}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           )}

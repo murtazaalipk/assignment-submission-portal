@@ -1,5 +1,5 @@
 import { connectMongoDB } from "@/lib/mongodb";
-import { createAssignment } from "../../../services/assignment";
+import { createAssignment, getAssignments } from "../../../services/assignment";
 import { NextResponse } from "next/server";
 
 /**
