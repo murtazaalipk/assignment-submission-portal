@@ -1,50 +1,55 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { useSession } from 'next-auth/react';
+import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import AssignmentDetailForTeacher from "@/components/AssignmentDetailForTeacher";
 import AssignmentDetailForStudent from "@/components/AssignmentDetailForStudent";
+
 export default function AssignmentDetailPage() {
     const pathname = usePathname();
-    const [courseId, assignmentId] = pathname.split("/").slice(3, 5); // extract courseId and assignmentId from URL
+    const id = pathname.split("/")[2]; // Extract classId from the path
+    const assignmentID = pathname.split("/")[4]; // Extract assignmentId from the path
     const [assignment, setAssignment] = useState(null);
+    const [loading, setLoading] = useState(true);
     const { data: session } = useSession();
     const role = session?.user?.role;
 
     useEffect(() => {
         const fetchAssignment = async () => {
-            // Simulate fetching assignment data by ID
-            const assignments = [
-                {
-                    id: 1,
-                    name: "Assignment 1",
-                    dueDate: "2024-07-20",
-                    studentCount: 20,
-                },
-                {
-                    id: 2,
-                    name: "Assignment 2",
-                    dueDate: "2024-07-27",
-                    studentCount: 18,
-                },
-            ];
-            const selectedAssignment = assignments.find((assignment) => assignment.id === parseInt(assignmentId));
-            setAssignment(selectedAssignment);
+            try {
+                const response = await fetch(`/api/assignment?classId=${id}`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch assignments");
+                }
+                const data = await response.json();
+                const assignmentsArray = data.assignments || []; // Ensure it's an array
+
+                const selectedAssignment = assignmentsArray.find((assignment) => assignment._id === assignmentID);
+                setAssignment(selectedAssignment);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setLoading(false);
+            }
         };
 
-        if (assignmentId) {
+        if (id && assignmentID) {
             fetchAssignment();
         }
-    }, [assignmentId]);
+    }, [id, assignmentID]);
 
-    if (!assignment) {
+    if (loading) {
         return <div>Loading...</div>;
     }
 
-   
-  return role === "teacher" ? (
-    <AssignmentDetailForTeacher/>
-  ) : (
-    <AssignmentDetailForStudent/>
-  );
+    if (!assignment) {
+        return <div>Assignment not found</div>;
+    }
+
+    return role === "teacher" ? (
+        <AssignmentDetailForTeacher assignment={assignment} />
+    ) : (
+        <AssignmentDetailForStudent assignment={assignment} />
+    );
 }
