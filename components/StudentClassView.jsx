@@ -8,7 +8,7 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
   useEffect(() => {
     const fetchAssignment = async () => {
       const fetchAssignment = await (
-        await fetch(`http://localhost:3000/api/assignment?classId=${classId}`)
+        await fetch(`/api/assignment?classId=${classId}`)
       ).json();
       setAssignment(fetchAssignment.assignments);
     };

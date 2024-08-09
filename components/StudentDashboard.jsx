@@ -13,7 +13,7 @@ export default function StudentDashboard() {
   useEffect(() => {
     const fetchCourses = async () => {
       const fetchedCourses = await (
-        await fetch(`http://localhost:3000/api/classes?email=${email}`)
+        await fetch(`/api/classes?email=${email}`)
       ).json();
       setCourses(fetchedCourses.classes);
     };

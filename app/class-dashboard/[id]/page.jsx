@@ -31,7 +31,7 @@ export default function ClassDashboard() {
     const fetchCourses = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/classes?email=${session?.user?.email}`
+          `/api/classes?email=${session?.user?.email}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch courses");
