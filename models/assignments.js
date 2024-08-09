@@ -14,10 +14,10 @@ const assignmentSchema = new Schema(
       type: Date,
       required: true,
     },
-    classId:{
+    classId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Classes",
-      required:true
+      ref: "Class",
+      required: true,
     },
     submitted: [
       {

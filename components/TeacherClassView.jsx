@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import PostAssignment from "./PostAssignment";
 
 const TeacherClassView = ({ course, batch, teacherId, classId }) => {
   const [selectedSection, setSelectedSection] = useState("view");
@@ -8,7 +9,7 @@ const TeacherClassView = ({ course, batch, teacherId, classId }) => {
   useEffect(() => {
     const fetchAssignment = async () => {
       const fetchAssignment = await (
-        await fetch(`http://localhost:3000/api/assignment?classId=${classId}`)
+        await fetch(`/api/assignment?classId=${classId}`)
       ).json();
       setAssignment(fetchAssignment.assignments);
     };
@@ -63,7 +64,7 @@ const TeacherClassView = ({ course, batch, teacherId, classId }) => {
                 </tr>
               </thead>
               <tbody>
-                {assignments.map((assignment, index) => (
+                {assignments?.map((assignment, index) => (
                   <tr
                     className="bg-[#e3ebf8] border border-[#cdcb]"
                     key={index}
@@ -89,8 +90,7 @@ const TeacherClassView = ({ course, batch, teacherId, classId }) => {
           )}
           {selectedSection === "post" && (
             <div>
-              <h3>Post Assignment</h3>
-              {/* Post assignment form or functionality */}
+              <PostAssignment classId={classId} />
             </div>
           )}
           {selectedSection === "report" && (

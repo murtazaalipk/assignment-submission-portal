@@ -1,5 +1,5 @@
 import { connectMongoDB } from "@/lib/mongodb";
-import { createAssignment, getAssignments } from "@/services/assignment";
+import { createAssignment } from "../../../services/assignment";
 import { NextResponse } from "next/server";
 
 /**
@@ -23,11 +23,16 @@ export async function POST(req) {
     await connectMongoDB();
 
     // Create the assignment
-    await createAssignment({ classId, title, description, dueDate });
+    const assignment = await createAssignment({
+      classId,
+      title,
+      description,
+      dueDate,
+    });
 
     // Return success response
     return NextResponse.json(
-      { success: true, message: "Assignment posted" },
+      { success: true, message: "Assignment posted", assignment },
       { status: 201 }
     );
   } catch (error) {
