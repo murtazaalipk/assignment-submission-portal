@@ -2,8 +2,9 @@
 
 // import { authOptions } from "../api/auth/[...nextauth]/route";
 import Form from "@/components/Form";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import Loader from "@/components/Loader";
+import { signIn, useSession } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Register() {
@@ -13,6 +14,23 @@ export default function Register() {
   const [isLoading, setLoading] = useState(false);
 
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <Loader />;
+  } else if (
+    status === "authenticated" &&
+    session &&
+    session?.user?.role === "admin"
+  ) {
+    redirect("/admin");
+  } else if (
+    status === "authenticated" &&
+    session &&
+    session?.user?.role !== "admin"
+  ) {
+    redirect("/");
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
