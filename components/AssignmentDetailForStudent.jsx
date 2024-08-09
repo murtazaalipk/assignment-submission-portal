@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
+import Loader from "./Loader";
 
 function AssignmentPage({ submitted }) {
   const { data: session, status } = useSession();
@@ -10,7 +11,7 @@ function AssignmentPage({ submitted }) {
   const [file, setFile] = useState(null);
   const [hostedLink, setHostedLink] = useState("");
   if (status === "loading") {
-    return "loading...";
+    return <Loader />;
   } else if (status === "unauthenticated") {
     redirect("/");
   }

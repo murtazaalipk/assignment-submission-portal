@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { fetchUserByEmail } from "@/services/user";
 import StudentDashboard from "@/components/StudentDashboard";
 import TeacherDashboard from "@/components/TeacherDashboard";
+import Loader from "@/components/Loader";
 
 const Home = () => {
   const { data: session } = useSession();
@@ -34,19 +35,15 @@ const Home = () => {
   }, [userData, router]);
 
   if (!userData) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
     <div>
-      {userData ? (
-        <div>
-          {userData.role === "student" && <StudentDashboard />}
-          {userData.role === "teacher" && <TeacherDashboard />}
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+      <div>
+        {userData.role === "student" && <StudentDashboard />}
+        {userData.role === "teacher" && <TeacherDashboard />}
+      </div>
     </div>
   );
 };

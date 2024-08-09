@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Loader from "./Loader";
 // import ChangePasswordForm from './ChangePasswordForm';
 const ProfilePage = () => {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   if (status === "unauthenticated") {

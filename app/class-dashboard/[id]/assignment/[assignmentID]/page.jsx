@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import AssignmentDetailForTeacher from "@/components/AssignmentDetailForTeacher";
 import AssignmentDetailForStudent from "@/components/AssignmentDetailForStudent";
+import Loader from "@/components/Loader";
 export default function AssignmentDetailPage() {
   const pathname = usePathname();
   const [courseId, assignmentId] = pathname.split("/").slice(3, 5); // extract courseId and assignmentId from URL
@@ -40,7 +41,7 @@ export default function AssignmentDetailPage() {
   }, [assignmentId]);
 
   if (!assignment) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return role === "teacher" ? (
