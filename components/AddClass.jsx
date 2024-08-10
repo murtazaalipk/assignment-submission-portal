@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AddClass = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +9,23 @@ const AddClass = () => {
     city: "",
     days: "",
   });
+
+  const [teachers, setTeachers] = useState([]);
+  const [alert, setAlert] = useState({ message: "", type: "" });
+  useEffect(() => {
+    // Fetch teachers data
+    const fetchTeachers = async () => {
+      try {
+        const response = await fetch("/api/getAllTeachers");
+        const data = await response.json();
+        setTeachers(data);
+      } catch (error) {
+        console.error("Failed to fetch teachers:", error);
+      }
+    };
+
+    fetchTeachers();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,13 +55,16 @@ const AddClass = () => {
     });
     const data = await response.json();
     if (data.success) {
-      alert("Class Created successful!");
-      console.log(data); // Handle the data from the API here
+      setAlert({ message: "Successfully Created class", type: "success" });
+    } else {
+      setAlert({ message: "Failed to add student", type: "error" });
     }
+    setTimeout(() => setAlert({ message: "", type: "" }), 3000);
   };
 
   return (
     <div className="p-4">
+       
       <h2 className="text-2xl font-bold mb-4">Add Class</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -62,16 +82,22 @@ const AddClass = () => {
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1" htmlFor="teacherId">
-            Teacher ID
+            Teacher
           </label>
-          <input
+          <select
             className="w-full p-2 border"
-            type="text"
             id="teacherId"
             name="teacherId"
             value={formData.teacherId}
             onChange={handleChange}
-          />
+          >
+            <option value="">Select Teacher</option>
+            {teachers.map((teacher) => (
+              <option key={teacher._id} value={teacher._id}>
+                {teacher.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1" htmlFor="batch">
@@ -124,6 +150,18 @@ const AddClass = () => {
           Add Class
         </button>
       </form>
+      {alert.message && (
+        <div
+          className={`mt-4 p-4 rounded-md text-center transition-opacity duration-300 ${
+            alert.type === "success"
+              ? "bg-green-100 text-green-800 opacity-100"
+              : "bg-red-100 text-red-800 opacity-100"
+          }`}
+          style={{ opacity: alert.message ? 1 : 0 }}
+        >
+          {alert.message}
+        </div>
+      )}
     </div>
   );
 };
