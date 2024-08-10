@@ -83,4 +83,23 @@ export const getClass = async ({ email }) => {
     console.error("Error:", error);
     throw error;
   }
+  
 };
+
+
+/**
+ * Retrieves all classes.
+ *
+ * @returns {Promise<Array>} The list of all classes.
+ * @throws {Error} If there's an error during retrieval.
+ */
+export const getAllClasses = async () => {
+  try {
+    // Fetch all classes from the database
+    return await Class.find().select('_id title batch'); // Select only the ID and title
+  } catch (error) {
+    // Log and throw the error to be caught and handled by the caller
+    console.error("Error fetching classes:", error);
+    throw error;
+  }
+}
