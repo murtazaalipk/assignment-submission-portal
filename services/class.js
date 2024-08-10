@@ -88,18 +88,21 @@ export const getClass = async ({ email }) => {
 
 
 /**
- * Retrieves all classes.
+ * Retrieves all classes with their IDs, titles, batches, and teacher names.
  *
- * @returns {Promise<Array>} The list of all classes.
- * @throws {Error} If there's an error during retrieval.
+ * @returns {Promise<Array>} The list of all classes with teacher names.
  */
 export const getAllClasses = async () => {
   try {
-    // Fetch all classes from the database
-    return await Class.find().select('_id title batch'); // Select only the ID and title
+    // Fetch all classes
+    const classes = await Class.find().populate('teacher', 'name'); // Populate teacher with only the name field
+    return classes.map(cls => ({
+      id: cls._id,
+      name: cls.title,
+      batch: cls.batch,
+      teacherName: cls.teacher.name 
+    }));
   } catch (error) {
-    // Log and throw the error to be caught and handled by the caller
-    console.error("Error fetching classes:", error);
-    throw error;
+    throw new Error('Error fetching classes');
   }
-}
+};
