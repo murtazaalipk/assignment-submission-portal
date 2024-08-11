@@ -3,7 +3,7 @@ import Assignment from "../models/assignments";
 import User from "../models/user";
 
 /**
- * 
+ *
  * Creates a new assignment document in the database.
  * @param {mongoose.Types.ObjectId} params.classId - The ID of the class the assignment belongs to.
  * @param {string} title - The title of the assignment.
@@ -19,42 +19,34 @@ export const createAssignment = async ({
   dueDate,
 }) => {
   try {
-    // Create a new instance of the Assignment model with the provided data
     const newAssignment = new Assignment({
       title,
       description,
       dueDate,
-      classId
+      classId,
     });
 
-    // Save the new assignment to the database and await the operation
     const assignment = await newAssignment.save();
 
-    // Find the existing class by ID and add the assignment reference to the assignments array
     const existingClass = await Class.findByIdAndUpdate(
       classId,
       { $push: { assignments: assignment._id } },
       { new: true }
     );
 
-    // Check if the class was found and updated
     if (!existingClass) {
       throw new Error("Class not found");
     }
 
-    // Loop through the students array and update each student's assignments array
     for (const studentId of existingClass.students) {
-      await User.findByIdAndUpdate(
-        studentId,
-        { $push: { assignments: assignment._id } }
-      );
+      await User.findByIdAndUpdate(studentId, {
+        $push: { assignments: assignment._id },
+      });
     }
 
-    // Return the saved assignment object
     return assignment;
   } catch (error) {
-    // Throw the error to be caught and handled by the caller
-    throw error;
+    throw new Error(`Failed to create assignment: ${error.message}`);
   }
 };
 
@@ -67,7 +59,7 @@ export const createAssignment = async ({
 export const getAssignments = async ({ classId }) => {
   try {
     //finding assignments of specific class using class Id
-    const existingClass = await Class.findById(classId).populate('assignments');
+    const existingClass = await Class.findById(classId).populate("assignments");
 
     if (!existingClass) {
       throw new Error("Class not found");

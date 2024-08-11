@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Form from "@/components/Form";
+import { useSession } from "next-auth/react";
+import Loader from "@/components/Loader";
 
 export default function Register() {
   const [cnic, setCnic] = useState("");
@@ -13,6 +15,23 @@ export default function Register() {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <Loader />;
+  } else if (
+    status === "authenticated" &&
+    session &&
+    session?.user?.role === "admin"
+  ) {
+    redirect("/admin");
+  } else if (
+    status === "authenticated" &&
+    session &&
+    session?.user?.role !== "admin"
+  ) {
+    redirect("/");
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

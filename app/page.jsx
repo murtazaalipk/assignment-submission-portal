@@ -1,41 +1,21 @@
-'use client'
-import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import { fetchUserByEmail } from "@/services/user";
-import StudentDashboard from '@/components/StudentDashboard';
-import TeacherDashboard from '@/components/TeacherDashboard';
+"use client";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
+import Dashboard from "@/components/Dashboard";
 
 const Home = () => {
   const { data: session } = useSession();
-  const [userData, setUserData] = useState(null);
-
-  const handleFetchUser = async (email) => {
-    try {
-      const fetchedUser = await fetchUserByEmail(email);
-      setUserData(fetchedUser);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+  const router = useRouter();
 
   useEffect(() => {
-    if (session?.user?.email) {
-      handleFetchUser(session.user.email);
+    if (session?.user?.role === "admin") {
+      router.push("/admin");
     }
-  }, [session?.user?.email]);
+  }, [session, router]);
 
-  return (
-    <div>
-      {userData ? (
-        <div> 
-          {userData.role === 'student' && <StudentDashboard />}
-          {userData.role === 'teacher' && <TeacherDashboard />} 
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
-  );
+  return <Dashboard role={session?.user} />;
 };
 
 export default Home;

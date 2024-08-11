@@ -40,8 +40,9 @@ export default function AssignmentDetailPage() {
     }, [id, assignmentID]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loader />;
     }
+
 
     if (!assignment) {
         return <div>Assignment not found</div>;

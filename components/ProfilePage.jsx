@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Loader from "./Loader";
 // import ChangePasswordForm from './ChangePasswordForm';
 const ProfilePage = () => {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   if (status === "unauthenticated") {
@@ -39,7 +40,9 @@ const ProfilePage = () => {
           <p className="text-gray-900"> {user.name}</p>
         </div>
         <div className="mb-4 flex">
-          <label className="block text-gray-700 font-bold">Email: &nbsp; </label>
+          <label className="block text-gray-700 font-bold">
+            Email: &nbsp;{" "}
+          </label>
           <p className="text-gray-900 ">{user.email}</p>
         </div>
         <div className="mb-4 flex">
