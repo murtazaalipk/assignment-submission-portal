@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 import AssignmentDetailForTeacher from "@/components/AssignmentDetailForTeacher";
 import AssignmentDetailForStudent from "@/components/AssignmentDetailForStudent";
+import Loader from "@/components/Loader";
 
 export default function AssignmentDetailPage() {
     const pathname = usePathname();
@@ -14,6 +15,9 @@ export default function AssignmentDetailPage() {
     const [loading, setLoading] = useState(true);
     const { data: session } = useSession();
     const role = session?.user?.role;
+
+    console.log(id , assignmentID);
+    
 
     useEffect(() => {
         const fetchAssignment = async () => {
