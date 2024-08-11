@@ -97,10 +97,10 @@ export const getAllClasses = async () => {
     // Fetch all classes
     const classes = await Class.find().populate('teacher', 'name'); // Populate teacher with only the name field
     return classes.map(cls => ({
-      id: cls._id,
-      name: cls.title,
-      batch: cls.batch,
-      teacherName: cls.teacher.name 
+      id: cls?._id,
+      name: cls?.title,
+      batch: cls?.batch,
+      teacherName: cls?.teacher?.name 
     }));
   } catch (error) {
     throw new Error('Error fetching classes');
