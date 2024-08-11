@@ -1,6 +1,12 @@
 export default function Cart({ title, batch, city, days, status }) {
   const completeClass = "bg-[#def1f7] text-blue-800 font-bold";
   const inProgressClass = "bg-green-200 text-green-800";
+  
+  let inProgress = false; 
+
+if (status === "in progress") {
+    inProgress = true;
+}
   return (
     <main className=" font-signika cursor-pointer w-[360px] p-4 flex flex-col justify-center items-start rounded-lg shadow-md hover:shadow-lg hover:bg-[#def1f7] transition-all">
       <h1 className=" font-[500] text-[16px] ">{title}</h1>
@@ -23,10 +29,10 @@ export default function Cart({ title, batch, city, days, status }) {
       </div>
       <div
         className={`${
-          status ? completeClass : inProgressClass
+          inProgress ? inProgressClass : completeClass 
         } mt-2 px-2 font-bold py-1 rounded-full text-[10px]`}
       >
-        {status ? "Complete" : "InProgress"}
+        {inProgress ? "InProgress" : "Complete"}
       </div>
     </main>
   );
