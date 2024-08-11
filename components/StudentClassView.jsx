@@ -60,7 +60,9 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
                 </tr>
               </thead>
               <tbody>
-                {assignments.map((assignment) => (
+                {assignments.map((assignment) => {
+                   const date = new Date(assignment.dueDate);
+                   const dueDate = date.toDateString();
                   <tr
                     className="bg-[#e3ebf8] border border-[#cdcb]"
                     key={assignment._id}
@@ -72,7 +74,7 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
                         }}
                       >{assignment.title}</Link>
                     </td>
-                    <td className="p-3">{assignment.dueDate}</td>
+                    <td className="p-3">{dueDate}</td>
                     <td className="p-3">
                       {assignment.Status === "pending" ? (
                         <button className="bg-green-300 font-bold w-16 text-green-900 mt-2 px-2 py-1 rounded-full text-[12px]">
@@ -85,7 +87,7 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
                       )}
                     </td>
                   </tr>
-                ))}
+})}
               </tbody>
             </table>
           )}

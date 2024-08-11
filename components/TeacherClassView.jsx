@@ -76,8 +76,8 @@ const TeacherClassView = ({ course, batch, teacherId, classId }) => {
                     >
                       <td className="p-3">
                         <Link
-                          href={`/class-dashboard/${teacherId}/assignment/${
-                            index + 1
+                          href={`/class-dashboard/${classId}/assignment/${
+                            assignment._id
                           }`}
                           passHref
                         >
