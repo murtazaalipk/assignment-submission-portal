@@ -63,7 +63,9 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
                 {assignments.map((assignment) => {
                    const date = new Date(assignment.dueDate);
                    const dueDate = date.toDateString();
-                  <tr
+                  
+                   return (
+                    <tr
                     className="bg-[#e3ebf8] border border-[#cdcb]"
                     key={assignment._id}
                   >
@@ -87,7 +89,8 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
                       )}
                     </td>
                   </tr>
-})}
+                   )
+              })}
               </tbody>
             </table>
           )}
