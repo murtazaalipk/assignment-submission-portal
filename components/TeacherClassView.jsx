@@ -42,14 +42,14 @@ const TeacherClassView = ({ course, batch, teacherId, classId }) => {
             >
               Post Assignment
             </button>
-            <button
+            {/* <button
               className={`p-3 rounded cursor-not-allowed ${
                 selectedSection === "report" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
               onClick={() => setSelectedSection("report")}
             >
               Generate Report
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -60,7 +60,7 @@ const TeacherClassView = ({ course, batch, teacherId, classId }) => {
                 <tr>
                   <td className="p-3">Assignment</td>
                   <td className="p-3">Due Date</td>
-                  <td className="p-3">Student Count</td>
+                  {/* <td className="p-3">Student Count</td> */}
                 </tr>
               </thead>
               <tbody>
@@ -76,9 +76,7 @@ const TeacherClassView = ({ course, batch, teacherId, classId }) => {
                     >
                       <td className="p-3">
                         <Link
-                          href={`/class-dashboard/${classId}/assignment/${
-                            assignment._id
-                          }`}
+                          href={`/class-dashboard/${classId}/assignment/${assignment._id}`}
                           passHref
                         >
                           {assignment.title}

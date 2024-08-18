@@ -37,7 +37,7 @@ const AssignmentDetail = ({ assignment }) => {
     <div className="p-20">
       <h2>{assignment.name}</h2>
       <h3>Due Date: {dueDate}</h3>
-      <h4>Student Count: {assignment.studentCount}</h4>
+      {/* <h4>Student Count: {assignment.studentCount}</h4> */}
 
       <table className="min-w-full bg-white text-center">
         <thead>
@@ -73,7 +73,7 @@ const AssignmentDetail = ({ assignment }) => {
   );
 };
 
-export default function AssignmentDetailPage({assignment}) {
+export default function AssignmentDetailPage({ assignment }) {
   const pathname = usePathname();
   const [courseId, assignmentId] = pathname.split("/").slice(3, 5); // extract courseId and assignmentId from URL
   const { data: session } = useSession();

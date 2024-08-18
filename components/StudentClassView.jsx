@@ -26,22 +26,25 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
         <div className="p-4 shadow-sm">
           <div className="flex gap-4">
             <button
-              className={`p-3 rounded ${selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
-                }`}
+              className={`p-3 rounded ${
+                selectedSection === "view" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              }`}
               onClick={() => setSelectedSection("view")}
             >
               View Assignment
             </button>
             <button
-              className={`p-3 rounded cursor-not-allowed ${selectedSection === "pending" ? "bg-blue-200" : "bg-[#e3ebf8]"
-                }`}
+              className={`p-3 rounded cursor-not-allowed ${
+                selectedSection === "pending" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              }`}
               onClick={() => setSelectedSection("pending")}
             >
               Pending Assignment
             </button>
             <button
-              className={`p-3 rounded cursor-not-allowed ${selectedSection === "submitted" ? "bg-blue-200" : "bg-[#e3ebf8]"
-                }`}
+              className={`p-3 rounded cursor-not-allowed ${
+                selectedSection === "submitted" ? "bg-blue-200" : "bg-[#e3ebf8]"
+              }`}
               onClick={() => setSelectedSection("submitted")}
             >
               Submitted Assignment
@@ -61,51 +64,53 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
               </thead>
               <tbody>
                 {assignments.map((assignment) => {
-                   const date = new Date(assignment.dueDate);
-                   const dueDate = date.toDateString();
-                  
-                   return (
+                  const date = new Date(assignment.dueDate);
+                  const dueDate = date.toDateString();
+
+                  return (
                     <tr
-                    className="bg-[#e3ebf8] border border-[#cdcb]"
-                    key={assignment._id}
-                  >
-                    <td className="p-3">
-                      <Link
-                        href={{
-                          pathname: `/class-dashboard/${assignment.classId}/assignment/${assignment._id}`,
-                        }}
-                      >{assignment.title}</Link>
-                    </td>
-                    <td className="p-3">{dueDate}</td>
-                    <td className="p-3">
-                      {assignment.Status === "pending" ? (
-                        <button className="bg-green-300 font-bold w-16 text-green-900 mt-2 px-2 py-1 rounded-full text-[12px]">
-                          Pending
-                        </button>
-                      ) : (
-                        <button className="bg-blue-300 font-bold w-16 text-blue-800 mt-2 px-2 py-1 rounded-full text-[12px]">
-                          Complete
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                   )
-              })}
+                      className="bg-[#e3ebf8] border border-[#cdcb]"
+                      key={assignment._id}
+                    >
+                      <td className="p-3">
+                        <Link
+                          href={{
+                            pathname: `/class-dashboard/${assignment.classId}/assignment/${assignment._id}`,
+                          }}
+                        >
+                          {assignment.title}
+                        </Link>
+                      </td>
+                      <td className="p-3">{dueDate}</td>
+                      <td className="p-3">
+                        {assignment.Status === "pending" ? (
+                          <button className="bg-green-300 font-bold w-16 text-green-900 mt-2 px-2 py-1 rounded-full text-[12px]">
+                            Pending
+                          </button>
+                        ) : (
+                          <button className="bg-blue-300 font-bold w-16 text-blue-800 mt-2 px-2 py-1 rounded-full text-[12px]">
+                            Complete
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           )}
-          {selectedSection === "pending" && (
+          {/* {selectedSection === "pending" && (
             <div>
               <h3>Pending Assignment</h3>
-              {/* Post assignment form or functionality */}
+
             </div>
           )}
           {selectedSection === "submitted" && (
             <div>
               <h3>Submitted Assignment</h3>
-              {/* Report generation functionality */}
+
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
