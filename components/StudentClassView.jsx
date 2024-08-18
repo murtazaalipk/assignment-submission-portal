@@ -33,7 +33,7 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
             >
               View Assignment
             </button>
-            <button
+            {/* <button
               className={`p-3 rounded cursor-not-allowed ${
                 selectedSection === "pending" ? "bg-blue-200" : "bg-[#e3ebf8]"
               }`}
@@ -48,7 +48,7 @@ const StudentClassView = ({ course, batch, studentId, classId }) => {
               onClick={() => setSelectedSection("submitted")}
             >
               Submitted Assignment
-            </button>
+            </button> */}
           </div>
         </div>
 
