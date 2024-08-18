@@ -15,7 +15,7 @@ const UserList = () => {
 
   const fetchUsers = () => {
     setLoading(true);
-    fetch('http://localhost:3000/api/getAllUsers')
+    fetch('/api/getAllUsers')
       .then(response => {
         if (!response.ok) {
           throw new Error("Failed to fetch users");
